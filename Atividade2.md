@@ -1,10 +1,10 @@
 1. Equipe:\
 -LUCAS LEMOS MONTEIRO\
 -PEDRO HENRIQUE FEITOSA FERNANDES\
--PEDRO HENRIQUE LOPES DOS SANTOS\
+-PEDRO HENRIQUE LOPES DOS SANTOS
 
 2. Projeto escolhido:\
--LabKey\
+-LabKey
 
 
 3. Descrição breve do tema:
