@@ -7,17 +7,18 @@
 -LabKey
 
 
-3. Descrição breve do tema:
+3. Descrição breve do tema:\
+-Um aplicativo para gerenciar as chaves dos laboratórios da Universidade Federal do Cariri (UFCA).
 
 
-4. Descrição breve das funcionalidades:
-
+4. Descrição breve das funcionalidades:\
+-
 
 5. Divisão de tarefas:
-
+-
 
 6. Cronograma de atividades:
-
+-
 
 7. Link do Google Docs: \
 [Clique Aqui](https://docs.google.com/document/d/1kkFqvEXjnq9MswoLlgcRTXaT7NjkhXPOMfaUH-7fyiM/edit?usp=sharing)
