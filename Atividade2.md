@@ -4,6 +4,7 @@
 -PEDRO HENRIQUE LOPES DOS SANTOS
 
 2. Projeto escolhido:
+-LabKey
 
 
 3. Descrição breve do tema:
@@ -18,4 +19,5 @@
 6. Cronograma de atividades:
 
 
-7. Link do Google Docs:
+7. Link do Google Docs: 
+[Clique Aqui](https://link-url-here.org)
