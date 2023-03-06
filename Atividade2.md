@@ -20,4 +20,4 @@
 
 
 7. Link do Google Docs: 
-[Clique Aqui](https://external.ink?to=docs.google.com/document/d/1kkFqvEXjnq9MswoLlgcRTXaT7NjkhXPOMfaUH-7fyiM/edit?usp=sharing)
+[Clique Aqui](https://docs.google.com/document/d/1kkFqvEXjnq9MswoLlgcRTXaT7NjkhXPOMfaUH-7fyiM/edit?usp=sharing)
