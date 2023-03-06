@@ -11,7 +11,7 @@
 -Um aplicativo para gerenciar as chaves dos laboratórios da Universidade Federal do Cariri (UFCA).
 
 
-4. Descrição breve das funcionalidades:\
+4. Descrição breve das funcionalidades:
 -
 
 5. Divisão de tarefas:
