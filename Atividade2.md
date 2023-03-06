@@ -1,10 +1,10 @@
-1. Equipe:
+1. Equipe:\
 -LUCAS LEMOS MONTEIRO\
 -PEDRO HENRIQUE FEITOSA FERNANDES\
--PEDRO HENRIQUE LOPES DOS SANTOS
+-PEDRO HENRIQUE LOPES DOS SANTOS\
 
-2. Projeto escolhido:
--LabKey
+2. Projeto escolhido:\
+-LabKey\
 
 
 3. Descrição breve do tema:
@@ -19,5 +19,5 @@
 6. Cronograma de atividades:
 
 
-7. Link do Google Docs: 
+7. Link do Google Docs: \
 [Clique Aqui](https://docs.google.com/document/d/1kkFqvEXjnq9MswoLlgcRTXaT7NjkhXPOMfaUH-7fyiM/edit?usp=sharing)
