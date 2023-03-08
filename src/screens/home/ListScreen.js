@@ -1,11 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import Theme from '../../themes/LabKeyTheme';
 
-export default function HomeScreen() {
+export default function ListScreen() {
   return (
     <ScrollView style={styles.container}>
-        <Text>Tela home</Text>
+      <Text>Tela da lista de chaves</Text>
     </ScrollView>
   );
 }

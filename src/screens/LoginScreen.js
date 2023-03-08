@@ -1,38 +1,41 @@
 import React, { useState } from 'react';
 import { Alert, Button, Image, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation, StackActions } from '@react-navigation/native';
 import Theme from '../themes/LabKeyTheme';
 
 export default function LoginScreen() {
+
+  const navigation = useNavigation();
 
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
   const logar = () => {
     if (usuario.toLocaleLowerCase() === 'admin' && senha.toLocaleLowerCase() === 'admin'){
-      Alert.alert('Login Efetuado com Sucesso');
+      navigation.dispatch(
+        StackActions.replace('HomeNavigator')
+      );
     } else {
       Alert.alert('Usuário ou Senha Incorreto(s)');
     }
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
+    <ScrollView style={styles.container}>
         <View style={styles.logoView}>
-          <Image 
+          <Image
             style={styles.logo}
             source={require('../assets/logo.png')}
           />
           <Text style={styles.textLogo}>Faça seu Login:</Text>
         </View>
         <View style={styles.formView}>
-          <TextInput 
+          <TextInput
             style={styles.input} 
             placeholder="Digite seu Usuário"
             onChangeText={(usuario) => setUsuario(usuario)}
             value={usuario}
           />
-          <TextInput 
+          <TextInput
             secureTextEntry={true} 
             style={styles.input}  
             placeholder="Digite sua Senha"
@@ -41,8 +44,7 @@ export default function LoginScreen() {
           />
           <Button title='Entrar' onPress={logar} />
         </View>
-      </ScrollView>
-    </SafeAreaView>
+    </ScrollView>
   );
 }
 
