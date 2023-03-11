@@ -1,5 +1,7 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Alert, StyleSheet, TouchableOpacity, Modal, Text, View } from 'react-native';
+import { IconButton } from '@react-native-material/core';
+import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import CustomListView from '../../components/CustomListView';
 import Theme from '../../themes/LabKeyTheme';
 
@@ -38,15 +40,27 @@ function getData(){
 
 export default function HomeScreen() {
 
-  const dataEmprestimo = getData()['todos_emprestimos'];
+  const [emprestimo, setEmprestimo] = useState({
+    data: getData()['todos_emprestimos'],
+    total: getData()['todos_emprestimos'].length
+  });
   const dataChaves = getData()['todas_chaves'];
+  const [visibleModal, setVisibleModal] = useState(false);
+  const openPopMenu = () => {
+    setVisibleModal(true);
+  };
+  const [filter, setFilter] = useState({
+    tableFilter: 2,
+    label: 'Esse Mês'
+  });
 
   return (
     <View style={styles.container}>
       <View style={styles.cards}>
         <View style={[styles.cardChaves, styles.cardChavesEmprestadas]}>
           <Text style={styles.tituloCard}>Chaves Emprestadas:</Text>
-          <Text style={styles.conteudoCard}>{dataEmprestimo.length}</Text>
+          <Text style={styles.subTituloCard}>({filter.label})</Text>
+          <Text style={styles.conteudoCard}>{emprestimo.total}</Text>
         </View>
         <View style={[styles.cardChaves, styles.cardChavesDisponiveis]}>
           <Text style={styles.tituloCard}>Chaves Disponíveis:</Text>
@@ -55,11 +69,59 @@ export default function HomeScreen() {
       </View>
       
       <View style={styles.listaPrincipal}>
-        <Text style={styles.tituloLista}>Lista de Empréstimos:</Text>
+        <View style={{flexDirection: 'row', alignItems:'center', justifyContent:'space-between'}}>
+          <Text style={styles.tituloLista}>Lista de Empréstimos:</Text>
+          <IconButton 
+            icon={() => <Icon name="filter-variant" size={18}/>}
+            onPress={openPopMenu}
+          />
+        </View>
         <CustomListView
-          itemList={dataEmprestimo}
+          itemList={emprestimo.data}
         />
       </View>
+      <Modal transparent visible={ visibleModal }>
+        <View style={{ flex: 1 }} onTouchEnd={() => setVisibleModal(false)}>
+          <View style={ styles.popUpMenu }>
+            <TouchableOpacity onPress={() => {
+                setFilter({
+                  tableFilter: 1,
+                  label: 'Hoje'
+                });
+                setEmprestimo({
+                  data: getData()['todos_emprestimos'].filter(chave => chave['devolvida'] == true),
+                  total: getData()['todos_emprestimos'].filter(chave => chave['devolvida']).length
+                });
+              }}>
+              <Text style={styles.popOptionText}>Hoje</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+                setFilter({
+                  tableFilter: 2,
+                  label: 'Esse Mês'
+                });
+                setEmprestimo({
+                  data: getData()['todos_emprestimos'],
+                  total: getData()['todos_emprestimos'].length
+                });
+              }}>
+              <Text style={styles.popOptionText}>Esse Mês</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.popOption} onPress={() => {
+                setFilter({
+                  tableFilter: 3,
+                  label: 'Últimos 6 Messes'
+                });
+                setEmprestimo({
+                  data: getData()['todos_emprestimos'].filter(chave => chave['devolvida'] == false),
+                  total: getData()['todos_emprestimos'].filter(chave => chave['devolvida'] == false).length
+                });
+              }}>
+              <Text style={[styles.popOptionText, , {borderBottomWidth: 0}]}>Últimos 6 Messes</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -78,6 +140,12 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     fontSize: 16,
     color: Theme.OnPrimaryColor,
+  },
+  subTituloCard:{
+    fontSize: 12,
+    color: Theme.OnPrimaryColor,
+    marginLeft: 8,
+    marginBottom: -16,
   },
   conteudoCard:{
     fontSize: 42,
@@ -105,5 +173,26 @@ const styles = StyleSheet.create({
   },
   tituloLista:{
     fontSize: 22
+  },
+  popUpMenu: {
+    backgroundColor: Theme.BackGroundColor,
+    borderWidth: 1,
+    borderColor: Theme.OnBackGroundColor,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    position: 'absolute',
+    top: '25%',
+    right: 10,
+    alignSelf:"flex-end"
+  },
+  popOption:{
+
+  },
+  popOptionText:{
+    color: Theme.OnBackGroundColor,
+    borderColor: '#999999',
+    paddingVertical: 5,
+    borderBottomWidth: 1,
+    fontSize: 20,
   },
 });
