@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import Theme from '../../themes/LabKeyTheme';
 
 export default function ListScreen() {

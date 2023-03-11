@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Alert, Button, Image, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, Button, Image, Keyboard, StyleSheet, TextInput, TouchableWithoutFeedback, View } from 'react-native';
+import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { useNavigation, StackActions } from '@react-navigation/native';
 import Theme from '../themes/LabKeyTheme';
 
@@ -9,75 +10,141 @@ export default function LoginScreen() {
 
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
+  const [passwordEye, setPasswordEye] = useState({
+    icon: 'eye',
+    security: true
+  });
+
+  const changeVisibility = () => {
+    setPasswordEye({
+      icon: passwordEye.security === true ? 'eye-off' : 'eye',
+      security: !passwordEye.security
+    });
+  }
+
   const logar = () => {
     if (usuario.toLocaleLowerCase() === 'admin' && senha.toLocaleLowerCase() === 'admin'){
       navigation.dispatch(
         StackActions.replace('HomeNavigator')
       );
     } else {
-      Alert.alert('Usuário ou Senha Incorreto(s)');
+      setUsuario('');
+      setSenha('');
+      Alert.alert(
+        title='Usuário ou Senha Incorreto(s)!',
+        message='Por favor tente novamente.'
+        );
     }
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.container}>
         <View style={styles.logoView}>
           <Image
             style={styles.logo}
             source={require('../assets/logo.png')}
           />
-          <Text style={styles.textLogo}>Faça seu Login:</Text>
         </View>
         <View style={styles.formView}>
-          <TextInput
-            style={styles.input} 
-            placeholder="Digite seu Usuário"
-            onChangeText={(usuario) => setUsuario(usuario)}
-            value={usuario}
-          />
-          <TextInput
-            secureTextEntry={true} 
-            style={styles.input}  
-            placeholder="Digite sua Senha"
-            onChangeText={(senha) => setSenha(senha)}
-            value={senha}
-          />
-          <Button title='Entrar' onPress={logar} />
+
+          <View style={styles.inputComponent}>
+            <Icon name='account' size={30} color={Theme.OnPrimaryColor} style={styles.iconInput}/>
+            <TextInput
+              id='inputUsuario'
+              style={styles.input}
+              cursorColor={Theme.PrimaryVariantColor}
+              placeholder="Digite seu Usuário"
+              onSubmitEditing={() => { this.inputSenha.focus() }}
+              blurOnSubmit={false}
+              onChangeText={(input) => setUsuario(input)}
+              value={usuario}
+            />
+          </View>
+
+          <View style={styles.inputComponent}>
+            <Icon name='form-textbox-password' size={30} color={Theme.OnPrimaryColor} style={styles.iconInput}/>
+            <View style={styles.inputComponentIcon}>
+              <TextInput
+                id='inputSenha'
+                secureTextEntry={passwordEye.security}
+                style={styles.inputSenha}
+                cursorColor={Theme.PrimaryVariantColor}
+                placeholder="Digite sua Senha"
+                ref={(input) => { this.inputSenha = input }}
+                onSubmitEditing={logar}
+                onChangeText={(senha) => setSenha(senha)}
+                value={senha}
+              />
+              <Icon name={passwordEye.icon} size={30} color={Theme.PrimaryVariantColor} style={styles.iconInput} onPress={changeVisibility}/>
+            </View>
+            
+          </View>
+          
+          <Button title='Entrar' color={Theme.PrimaryColor} onPress={logar} />
         </View>
-    </ScrollView>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Theme.BackgroundColor,
+    backgroundColor: Theme.BackGroundColor,
   },
   logoView:{
-    marginBottom: 25,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   logo:{
-    height: 250,
-    width: 250,
-    marginTop: 25,
-    alignSelf:'center',
-  },
-  textLogo:{
-    alignSelf:'center',
-    fontSize: 24
+    maxWidth: 200,
+    maxHeight: 200,
+    height: '60%',
+    width: '60%',
   },
   formView:{
     flex: 1,
+    justifyContent:'flex-start',
     alignItems:'center',
-    marginBottom: 50,
+    paddingTop: 8,
   },
   input: {
-    borderWidth: 1,
+    flex: 1,
+    height: '100%',
     paddingHorizontal: 5,
-    height: 40,
-    width: 300,
-    marginBottom: 10,
-    marginHorizontal: '10%',
-    borderRadius: 10,
+    backgroundColor: Theme.BackGroundColor,
+    color: Theme.OnBackGroundColor,
+    borderWidth: 1,
+    borderColor: Theme.PrimaryColor,
+    borderRadius: 15,
   },
+  inputSenha:{
+    flex:1,
+    height:'100%',
+    paddingHorizontal: 5
+  },
+  iconInput:{
+    marginHorizontal: 5
+  },
+  inputComponentIcon:{
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    height:'100%',
+    alignItems: 'center',
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: Theme.PrimaryColor
+  },
+  inputComponent: {
+    height: 45,
+    width: '80%',
+    borderRadius: 15,
+    backgroundColor: Theme.PrimaryColor,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  }
 });
