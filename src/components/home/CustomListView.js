@@ -5,7 +5,8 @@ import CustomRow from './CustomRow';
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      margin: 10,
+      marginHorizontal: 10,
+      marginBottom: 30,
     },
     viewNoData:{
       flex: 1,
@@ -31,6 +32,7 @@ const CustomListView = ({ itemList }) => (
           data={itemList}
           renderItem={({ item }) => <CustomRow
               nome={item.nome}
+              contato={item.contato}
               chave={item.chave}
               horario={item.horario}
               devolvida={item.devolvida}
