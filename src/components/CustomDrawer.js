@@ -2,17 +2,25 @@ import React from 'react'
 import { View, Image, StyleSheet, Text } from 'react-native'
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer'
 import { useNavigation, StackActions } from '@react-navigation/native';
+import app from '../config/firebase';
+import { getAuth, signOut } from "firebase/auth";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import Theme from '../themes/LabKeyTheme';
 
 export default function CustomDrawer(props){
 
   const navigation = useNavigation();
-  const logout = () => (
-    navigation.dispatch(
-      StackActions.replace('Login')
-    )
-  );
+  const logout = () =>{
+    const auth = getAuth(app);
+    signOut(auth).then(() => {
+      navigation.dispatch(
+        StackActions.replace('Login')
+      )
+    }).catch((error) => {
+      // An error happened.
+    });
+  };
+
   return(
       <View style={styles.container}>
         <DrawerContentScrollView contentContainerStyle={{ backgroundColor: Theme.PrimaryColor }} {...props}>

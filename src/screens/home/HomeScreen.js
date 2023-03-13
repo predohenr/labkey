@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { IconButton } from '@react-native-material/core';
-import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import CustomListView from '../../components/home/CustomListView';
 import FilterPopUpMenu from '../../components/home/FilterPopUpMenu';
 import Theme from '../../themes/LabKeyTheme';
@@ -41,11 +39,12 @@ function getData(){
 }
 
 export default function HomeScreen() {
-  const [visibleModal, setVisibleModal] = useState(false);
+
   const [filter, setFilter] = useState({
     tableFilter: 2,
     label: 'Esse Mês'
   });
+
   const emprestimos = filter.tableFilter == 1 && {
     data: getData()['todos_emprestimos'].filter(e => e['devolvida']),
     total: getData()['todos_emprestimos'].filter(e => e['devolvida']).length
@@ -59,23 +58,17 @@ export default function HomeScreen() {
   const chaves = {
     total: getData()['todas_chaves'].filter(chave => !chave['statusEmprestada']).length
   };
-  const openMenu = () => {
-    setVisibleModal(true);
-  };
-  const closeMenu = () => {
-    setVisibleModal(false);
-  };
 
   return (
     <View style={styles.container}>
       <View style={styles.cards}>
-        <Card 
+        <Card
           titulo='Chaves Emprestadas'
           label={filter.label}
           quantidade={emprestimos.total}
           bgColor={Theme.PrimaryColor}
         />
-        <Card 
+        <Card
           titulo='Chaves Disponíveis'
           label={null}
           quantidade={chaves.total}
@@ -85,23 +78,15 @@ export default function HomeScreen() {
       <View style={styles.lista}>
         <View style={{flexDirection: 'row', alignItems:'center', justifyContent:'space-between'}}>
           <Text style={styles.tituloLista}>Lista de Empréstimos:</Text>
-          <IconButton 
-            icon={() => <Icon name="filter-variant" size={18}/>}
-            onPress={openMenu}
-          />
+          <FilterPopUpMenu filter={setFilter} />
         </View>
         <CustomListView
           itemList={emprestimos.data}
         />
       </View>
-      <FilterPopUpMenu 
-        visible={visibleModal}
-        close={closeMenu}
-        filter={setFilter}
-      />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

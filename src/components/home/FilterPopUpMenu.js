@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { IconButton } from '@react-native-material/core';
+import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import Theme from '../../themes/LabKeyTheme';
 
-export default function FilterPopUpMenu({ visible, close, filter }) {
+export default function FilterPopUpMenu({ filter }) {
+
+	const [visible, setVisible] = useState(false);
 	const options = [
 		{
 		  label: 'Hoje',
@@ -16,23 +20,30 @@ export default function FilterPopUpMenu({ visible, close, filter }) {
 		  label: 'Últimos 6 messes',
 		  tableFilter: 3
 		}
-	  ];
+	];
+
   return (
-		<Modal transparent visible={ visible }>
-			<View style={{ flex: 1 }} onTouchEnd={close}>
-				<View style={ styles.popUpMenu }>
-					{options.map( (op, i) => (
-						<View
-						style={[styles.popOption, { borderBottomWidth: i === options.length - 1 ? 0 : 1 }]}
-						key={i}>
-							<TouchableOpacity onPress={() => {filter({tableFilter: op.tableFilter, label:op.label})}} >
-								<Text style={styles.popOptionText}>{op.label}</Text>
-							</TouchableOpacity>
-						</View>
-					))}
+		<>
+			<IconButton 
+				icon={() => <Icon name="filter-variant" size={18}/>}
+				onPress={() => setVisible(true)}
+			/>
+			<Modal transparent visible={ visible }>
+				<View style={{ flex: 1 }} onTouchEnd={() => setVisible(false)}>
+					<View style={ styles.popUpMenu }>
+						{options.map( (op, i) => (
+							<View
+							style={[styles.popOption, { borderBottomWidth: i === options.length - 1 ? 0 : 1 }]}
+							key={i}>
+								<TouchableOpacity onPress={() => {filter({tableFilter: op.tableFilter, label:op.label})}} >
+									<Text style={styles.popOptionText}>{op.label}</Text>
+								</TouchableOpacity>
+							</View>
+						))}
+					</View>
 				</View>
-			</View>
-		</Modal>
+			</Modal>
+		</>
   );
 }
 
