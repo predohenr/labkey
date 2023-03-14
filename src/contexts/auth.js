@@ -9,14 +9,13 @@ export const AuthProvider = ({ children }) =>{
 
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
-  const [authErro, setAuthErro] = useState(false);
+  const [authErro, setAuthErro] = useState({status: false, erro: null});
 
   useEffect(() => {
     async function getDataStoredData(){
-      const userId = await AsyncStorage.getItem('@LK:UserId');
-      const userToken = await AsyncStorage.getItem('@LK:UserToken');
-      if (userId && userToken){
-        setUser(userId);
+      const user = await AsyncStorage.getItem('@LK:User');
+      if (user){
+        setUser(JSON.parse(user));
       }
       setLoading(false);
     }
@@ -24,15 +23,21 @@ export const AuthProvider = ({ children }) =>{
   }, []);
 
   async function signIn (email, senha){
+    setLoading(true);
     auth.signIn(email, senha).then((response) => {
-      store.storeUserId(response.uid);
-      store.storeUserToken(response.stsTokenManager.accessToken);
-      setUser(response.uid);
+      if (response.status){
+        store.storeUser(JSON.stringify(response.data));
+        setUser(response.data);
+      } else {
+        setLoading(false);
+        setAuthErro({status: true, code: response.errorCode});
+      }
     });
   };
   async function signOut(){
     auth.signOutApp().then((response) =>{
       response && AsyncStorage.clear().then(() => {
+          setLoading(false);
           setUser({});
         })
     });

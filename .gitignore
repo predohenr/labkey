@@ -55,4 +55,4 @@ web-build/
 dist/
 
 # Firebase
-src/config/*.js
+android/app/google-services.json

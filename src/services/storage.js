@@ -6,8 +6,8 @@ export async function storeUserToken(token) {
     } catch (e) {}
 };
 
-export async function storeUserId(id) {
+export async function storeUser(user) {
   try {
-      await AsyncStorage.setItem('@LK:UserId', id);
+      await AsyncStorage.setItem('@LK:User', user);
     } catch (e) {}
 };
