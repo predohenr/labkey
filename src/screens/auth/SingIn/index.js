@@ -7,11 +7,11 @@ import Loading from '../../../components/common/Loading';
 
 export default function SingIn() {
 
-  const { signIn, authErro, loading } = authUser();
+  const { signIn, authErro, setAuthErro, loading } = authUser();
   const handleSingIn = (email, senha) => {
     signIn(email, senha);
   };
-
+  
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
@@ -25,7 +25,7 @@ export default function SingIn() {
           {loading ? 
             <Loading />
             :
-            <FormLogin onSubmit={handleSingIn} erroLogin={authErro} />
+            <FormLogin onSubmit={handleSingIn} erroLogin={authErro} setAuthErro={setAuthErro} />
           }
         </View>
       </View>

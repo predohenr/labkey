@@ -1,21 +1,31 @@
 import React, { useState } from 'react';
 import { Button } from 'react-native';
 import Theme from '../../themes/LabKeyTheme';
-import InputLogin from './InputLogin';
+import InputEmail from './InputEmail';
 import InputSenha from './InputSenha';
+import MsgError from './MsgError';
 
 
-export default function FormLogin({ onSubmit }) {
+export default function FormLogin({ onSubmit, erroLogin, setAuthErro }) {
 
-  const [login, setLogin] = useState('');
+  const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const logar = () => onSubmit(login, senha); 
+  
+  const submit = () => {
+    if (email.length > 0 && senha.length > 0){
+      erroLogin && setAuthErro(null);
+      onSubmit(email, senha);
+    } else {
+      this.inputEmail.focus();
+    }
+  }
 
   return (
     <>
-      <InputLogin value={login} returnLogin={setLogin} />
-      <InputSenha logar={logar} value={senha} returnSenha={setSenha} />
-      <Button title='Entrar' color={Theme.PrimaryColor} onPress={logar} />
+      <InputEmail value={email} setEmail={setEmail} />
+      <InputSenha submit={submit} value={senha} setSenha={setSenha} />
+      <MsgError erroLogin={erroLogin} />
+      <Button title='Entrar' color={Theme.PrimaryColor} onPress={submit} />
     </>
   );
 };

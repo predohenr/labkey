@@ -3,7 +3,7 @@ import { StyleSheet, TextInput, View } from 'react-native';
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import Theme from '../../themes/LabKeyTheme';
 
-export default function InputSenha({ logar, value, returnSenha }) {
+export default function InputSenha({ submit, value, setSenha }) {
 
   const [passwordEye, setPasswordEye] = useState({icon: 'eye', security: true});
   const changeVisibility = () => {
@@ -29,8 +29,9 @@ export default function InputSenha({ logar, value, returnSenha }) {
         cursorColor={Theme.PrimaryVariantColor}
         placeholder="Digite sua Senha"
         ref={(e) => { this.inputSenha = e }}
-        onSubmitEditing={logar}
-        onChangeText={(e) => returnSenha(e)}
+        onSubmitEditing={() => submit()}
+        blurOnSubmit={false}
+        onChangeText={(e) => setSenha(e)}
         value={value}
         />
         <Icon
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.PrimaryColor,
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 5,
   },
   inputComponentIcon:{
     flex: 1,

@@ -3,20 +3,22 @@ import { StyleSheet, TextInput, View } from 'react-native';
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import Theme from '../../themes/LabKeyTheme';
 
-export default function InputLogin({ value, returnLogin }) {
+export default function InputEmail({ value, setEmail }) {
 
   return (
     <View style={styles.inputComponent}>
       <Icon name='email-variant' size={30} color={Theme.OnPrimaryColor} style={styles.iconInput}/>
       <TextInput
-        id='inputLogin'
+        id='inputEmail'
         style={styles.inputLogin}
         cursorColor={Theme.PrimaryVariantColor}
-        placeholder="Digite seu E-mail"
+        placeholder='Digite seu E-mail'
+        ref={(e) => { this.inputEmail = e }}
+        inputMode='email'
         returnKeyType='next'
         onSubmitEditing={() => { this.inputSenha.focus() }}
         blurOnSubmit={false}
-        onChangeText={(e) => returnLogin(e)}
+        onChangeText={(e) => setEmail(e)}
         value={value}
       />
     </View>
