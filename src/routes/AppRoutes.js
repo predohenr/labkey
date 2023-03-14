@@ -1,17 +1,14 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import CustomDrawer from '../components/common/CustomDrawer';
+import CustomAppBar from '../components/common/CustomAppBar';
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import Theme from '../themes/LabKeyTheme';
-import CustomDrawer from '../components/CustomDrawer';
-import CustomAppBar from '../components/CustomAppBar';
-import LoginScreen from '../screens/LoginScreen';
-import HomeScreen from '../screens/home/HomeScreen';
-import ListScreen from '../screens/home/ListScreen';
+import Home from '../screens/app/home';
+import Keys from '../screens/app/keys';
 
-const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
-function NavigationDrawerHome(){
+export default function AppRoutes(){
   return(
     <Drawer.Navigator
       drawerContent={props => <CustomDrawer { ...props } />}
@@ -26,7 +23,7 @@ function NavigationDrawerHome(){
     >
       <Drawer.Screen
         name='Início'
-        component={ HomeScreen }
+        component={ Home }
         options={{
           drawerIcon: ({color}) => (
             <Icon name='home-outline' size={30} color={color}/>
@@ -35,7 +32,7 @@ function NavigationDrawerHome(){
       />
       <Drawer.Screen
         name='Lista de Chaves'
-        component={ ListScreen }
+        component={ Keys }
         options={{
           drawerIcon: ({color}) => (
             <Icon name='format-list-bulleted' size={30} color={color}/>
@@ -44,24 +41,4 @@ function NavigationDrawerHome(){
       />
     </Drawer.Navigator>
   )
-}
-
-export function AllRoutes(){
-    return(
-      <Stack.Navigator
-        initialRouteName='Login'
-        screenOptions={{
-          headerShown: false
-        }}
-      >
-        <Stack.Screen
-          name='Login'
-          component={ LoginScreen }
-        />
-        <Stack.Screen
-          name='HomeNavigator'
-          component={ NavigationDrawerHome }
-        />
-      </Stack.Navigator>
-    )
-  }
+};

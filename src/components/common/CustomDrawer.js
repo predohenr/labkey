@@ -1,24 +1,15 @@
-import React from 'react'
-import { View, Image, StyleSheet, Text } from 'react-native'
-import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer'
-import { useNavigation, StackActions } from '@react-navigation/native';
-import app from '../config/firebase';
-import { getAuth, signOut } from "firebase/auth";
+import React from 'react';
+import { View, Image, StyleSheet, Text } from 'react-native';
+import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
+import {authUser} from '../../contexts/auth';
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import Theme from '../themes/LabKeyTheme';
+import Theme from '../../themes/LabKeyTheme';
 
 export default function CustomDrawer(props){
 
-  const navigation = useNavigation();
-  const logout = () =>{
-    const auth = getAuth(app);
-    signOut(auth).then(() => {
-      navigation.dispatch(
-        StackActions.replace('Login')
-      )
-    }).catch((error) => {
-      // An error happened.
-    });
+  const { signOut } = authUser();
+  const logout = () => {
+    signOut();
   };
 
   return(
@@ -27,7 +18,7 @@ export default function CustomDrawer(props){
           <View style={styles.header}>
             <Image 
               style={styles.logo}
-              source={require('../assets/logo_branco.png')}
+              source={require('../../assets/logo_branco.png')}
             />
 
             <View style={{ width:'100%', flexDirection:'row' }}>

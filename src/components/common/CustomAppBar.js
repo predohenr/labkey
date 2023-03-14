@@ -2,7 +2,7 @@ import React from "react";
 import { AppBar, IconButton } from "@react-native-material/core";
 import { useNavigation } from '@react-navigation/native';
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import Theme from '../themes/LabKeyTheme';
+import Theme from '../../themes/LabKeyTheme';
 
 export default function CustomAppBar() {
 
