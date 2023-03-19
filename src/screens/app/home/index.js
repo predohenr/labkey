@@ -17,7 +17,7 @@ export default function Home(){
 	const [keys, setKeys] = useState([]);
 	const date = new Date();
 	const start = new Date(date.getFullYear(), date.getMonth(), 1);
-	const end = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+	const end = new Date(date.setHours(23, 59, 59, 999));
 	const [filter, setFilter] = useState({
 		start: start,
 		end: end,
@@ -25,7 +25,6 @@ export default function Home(){
 	});
 
 	useEffect(() => {
-		console.log('Filtro');
 		const userId = auth().currentUser.uid;
 		const subscriberKeys = firestore().collection(`users/${userId}/keys`)
 			.where('available', '==', true)
@@ -39,8 +38,8 @@ export default function Home(){
 			  setKeys(data);
 			});
 		const subscriberLoans = firestore().collection(`users/${userId}/loans`)
-			.where('create_at', '>', filter.start)
-  		.where('create_at', '<', filter.end)
+		.where('create_at', '>', firestore.Timestamp.fromDate(filter.start))
+  		.where('create_at', '<', firestore.Timestamp.fromDate(filter.end))
 		  .onSnapshot(querySnapshot => {
 			  const data = querySnapshot.docs.map(doc => {
 					return {

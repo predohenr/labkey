@@ -8,26 +8,24 @@ export default function FilterPopUpMenu({ filter }) {
 
 	const [visible, setVisible] = useState(false);
 	const date = new Date();
-	const startDay = new Date(date.getFullYear(), date.getMonth(), 1);
-	const startEnd =  new Date(date.getFullYear(), date.getMonth() + 1, 0);
 	const startMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-	const endMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-	const start3Month = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-	const end3Month = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+	const end = new Date(date.setHours(23, 59, 59, 999));
+	const startDay = new Date(date.setHours(0, 0, 0, 0));
+	const start3Month = new Date(date.getFullYear(), date.getMonth() - 2);
 	const options = [
 		{
 		  start: startDay,
-		  end: startEnd,
+		  end: end,
 		  label: 'Hoje',
 		},
 		{
 		  start: startMonth,
-		  end: endMonth,
+		  end: end,
 		  label: 'Esse Mês'
 		},
 		{
 		  start: start3Month,
-		  end: end3Month,
+		  end: end,
 		  label: 'Últimos 3 messes',
 		}
 	];
@@ -45,7 +43,7 @@ export default function FilterPopUpMenu({ filter }) {
 							<View
 							style={[styles.popOption, { borderBottomWidth: i === options.length - 1 ? 0 : 1 }]}
 							key={i}>
-								<TouchableOpacity onPress={() => {filter({tableFilter: op.tableFilter, label:op.label})}} >
+								<TouchableOpacity onPress={() => {filter({start: op.start, end: op.end, label:op.label})}} >
 									<Text style={styles.popOptionText}>{op.label}</Text>
 								</TouchableOpacity>
 							</View>

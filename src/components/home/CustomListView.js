@@ -35,6 +35,8 @@ export default function CustomListView ({ itemList, type }){
             <FlatList
               data={itemList}
               renderItem={({ item }) => <CustomRowEmprestimo
+                  id={item.id}
+                  idKey={item.key_id}
                   nome={item.name}
                   contato={item.contact}
                   chave={item.key_name}

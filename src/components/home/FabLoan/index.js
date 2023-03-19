@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import auth from "@react-native-firebase/auth";
-import firestore from '@react-native-firebase/firestore'
+import firestore from '@react-native-firebase/firestore';
 import { View, TouchableOpacity } from 'react-native';
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import FormNewLoan, { HeaderLoan } from '../FormNewLoan';

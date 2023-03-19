@@ -1,13 +1,23 @@
 import React from "react";
 import { IconButton } from '@react-native-material/core';
+import auth from "@react-native-firebase/auth";
+import firestore from '@react-native-firebase/firestore';
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { Button, Modal, StyleSheet, Text, View } from "react-native";
 import Theme from '../../themes/LabKeyTheme';
 
-export default function ContextMenu({ visible, close, nome, contato, chave, horario }) {
+export default function ContextMenu({ id, idKey, visible, close, nome, contato, chave, horario }) {
 
-  const devolverChave = () => {
-    close();
+  const devolverChave = (id, idKey) => {
+    firestore().runTransaction(async () => {
+      const userId = auth().currentUser.uid;
+      const date = firestore.FieldValue.serverTimestamp();
+      firestore().doc(idKey).update({available: true});
+      firestore().doc(`users/${userId}/loans/${id}`).update({returned: true, returned_at: date})
+      .then(() => {
+        close();
+      });
+    });
   };
   
   return (
@@ -36,7 +46,7 @@ export default function ContextMenu({ visible, close, nome, contato, chave, hora
             <Button
               title='Marcar como Devolvida'
               color={Theme.PrimaryVariantColor}
-              onPress={devolverChave}
+              onPress={() => devolverChave(id, idKey)}
             />
           </View>
         </View>
@@ -50,6 +60,7 @@ const styles = StyleSheet.create({
     flex: 1,
     position:'absolute',
     width:'80%',
+    borderRadius: 10,
     borderWidth: 2,
     borderColor: '#999999',
     backgroundColor: Theme.BackGroundColor

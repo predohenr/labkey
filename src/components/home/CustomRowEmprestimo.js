@@ -3,7 +3,7 @@ import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import ContextMenu from './ContextMenu';
 
-export default function CustomRowEmprestimo({nome, contato, chave, horario, devolvida}) {
+export default function CustomRowEmprestimo({id, idKey, nome, contato, chave, horario, devolvida}) {
   const [visibleModal, setVisibleModal] = useState(false);
   const closeModal = () => setVisibleModal(false);
   const openContextMenu = () => {
@@ -27,6 +27,8 @@ export default function CustomRowEmprestimo({nome, contato, chave, horario, devo
           />
         </TouchableOpacity>
         <ContextMenu
+          id={id}
+          idKey={idKey}
           visible={visibleModal}
           close={closeModal}
           nome={nome}
