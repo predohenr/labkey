@@ -11,11 +11,11 @@ export const AuthProvider = ({ children }) =>{
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged((authUser) => {
-      if(authUser){
+      if (authUser) {
         setUser(authUser);
       } else {
         loading && setLoading(false);
-      }
+      };
     });
     return subscriber;
   }, []);
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) =>{
     >
       { children }
     </AuthContext.Provider>
-  )
+  );
 }
 
 export function authUser(){

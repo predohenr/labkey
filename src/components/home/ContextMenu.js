@@ -8,9 +8,10 @@ export default function ContextMenu({ visible, close, nome, contato, chave, hora
 
   const devolverChave = () => {
     close();
-  }
+  };
+  
   return (
-    <Modal transparent visible={ visible }>
+    <Modal transparent visible={ visible } onRequestClose={close}>
       <View style={{flex: 1, alignItems: 'center', justifyContent:'center', backgroundColor:'#11111190'}}>
         <View style={styles.container}>
           <View style={styles.header}>

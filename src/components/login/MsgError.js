@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'red',
     marginBottom: 5,
-    marginRight: '10%',
-    alignSelf:'flex-end',
+    marginLeft: '15%',
+    alignSelf:'flex-start',
   },
 });

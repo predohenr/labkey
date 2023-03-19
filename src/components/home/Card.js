@@ -7,7 +7,9 @@ export default function Card({ titulo, label, quantidade, bgColor}) {
     <View style={[styles.containerCard, {backgroundColor: bgColor}]}>
       <Text style={styles.tituloCard}>{titulo}:</Text>
       {label != null && (<Text style={styles.subTituloCard}>({label})</Text>)}
-      <Text style={styles.conteudoCard}>{quantidade}</Text>
+      <View style={styles.qtdPosition}>
+        <Text style={styles.qtdCard}>{quantidade}</Text>
+      </View>
     </View>
   )
 }
@@ -16,9 +18,8 @@ const styles = StyleSheet.create({
   containerCard: {
     height: 100,
     width: '45%',
-    marginTop: 10,
-    marginHorizontal: 5,
     borderRadius: 10,
+    elevation:10
   },
   tituloCard:{
     marginTop: 8,
@@ -28,11 +29,15 @@ const styles = StyleSheet.create({
   },
   subTituloCard:{
     fontSize: 12,
-    color: Theme.OnPrimaryColor,
     marginLeft: 8,
-    marginBottom: -16,
+    color: Theme.OnPrimaryColor,
   },
-  conteudoCard:{
+  qtdPosition:{
+    position:'absolute',
+    bottom: 10,
+    right: 5,
+  },
+  qtdCard:{
     fontSize: 42,
     alignSelf: 'flex-end',
     marginRight: 20,

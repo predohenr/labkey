@@ -1,22 +1,21 @@
 import { StyleSheet } from "react-native";
 import Theme from "../../../themes/LabKeyTheme";
 
-
 export default StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: Theme.BackgroundColor,
+      backgroundColor: Theme.BackGroundColor,
     },
     cards: {
       flexDirection: 'row',
-      justifyContent:'center',
+      justifyContent:'space-around',
+      marginTop: 10,
     },
     lista: {
       flex: 1,
-      paddingTop: 10,
       marginHorizontal: 10,
     },
     tituloLista:{
-      fontSize: 22
+      fontSize: 22,
     },
 });

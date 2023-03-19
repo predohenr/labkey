@@ -1,50 +1,96 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import Loading from '../../../components/common/Loading';
+import FabLoan from '../../../components/home/FabLoan';
 import styles from './styles';
 import Card from '../../../components/home/Card';
 import CustomListView from '../../../components/home/CustomListView';
 import FilterPopUpMenu from '../../../components/home/FilterPopUpMenu';
 import Theme from '../../../themes/LabKeyTheme';
 
-export default function Home() {
+export default function Home(){
 
+	const [loading, setLoading] = useState(true);
+	const [loans, setLoans] = useState([]);
+	const [keys, setKeys] = useState([]);
+	const date = new Date();
+	const start = new Date(date.getFullYear(), date.getMonth(), 1);
+	const end = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 	const [filter, setFilter] = useState({
-		tableFilter: 2,
+		start: start,
+		end: end,
 		label: 'Esse Mês'
 	});
-	const emprestimos = {
-		data: [],
-		total: 0
-	};
-	const chaves = {
-		total: 0
-	};
+
+	useEffect(() => {
+		console.log('Filtro');
+		const userId = auth().currentUser.uid;
+		const subscriberKeys = firestore().collection(`users/${userId}/keys`)
+			.where('available', '==', true)
+			.onSnapshot(querySnapshot => {
+				const data = querySnapshot.docs.map(doc => {
+					return {
+						value: doc.id,
+						label: doc.data().name
+					};
+			  });
+			  setKeys(data);
+			});
+		const subscriberLoans = firestore().collection(`users/${userId}/loans`)
+			.where('create_at', '>', filter.start)
+  		.where('create_at', '<', filter.end)
+		  .onSnapshot(querySnapshot => {
+			  const data = querySnapshot.docs.map(doc => {
+					return {
+						id: doc.id,
+						...doc.data()
+					};
+			  });
+			  setLoans(data);
+			  setLoading(false);
+		  });
+		
+		return () => {
+			subscriberKeys(); 
+			subscriberLoans();
+		};
+	}, [filter])
   
 	return (
-		<View style={styles.container}>
-			<View style={styles.cards}>
-				<Card
-					titulo='Chaves Emprestadas'
-					label={filter.label}
-					quantidade={emprestimos.total}
-					bgColor={Theme.PrimaryColor}
-				/>
-				<Card
-					titulo='Chaves Disponíveis'
-					label={null}
-					quantidade={chaves.total}
-					bgColor={Theme.PrimaryVariantColor}
-				/>
-			</View>
-			<View style={styles.lista}>
-				<View style={{flexDirection: 'row', alignItems:'center', justifyContent:'space-between'}}>
-					<Text style={styles.tituloLista}>Lista de Empréstimos:</Text>
-					<FilterPopUpMenu filter={setFilter} />
+		<>
+			<View style={styles.container}>
+				<View style={styles.cards}>
+					<Card
+						titulo='Chaves Emprestadas'
+						label={filter.label}
+						quantidade={loans.length}
+						bgColor={Theme.PrimaryColor}
+						loading={loading}
+					/>
+					<Card
+						titulo='Chaves Disponíveis'
+						label={null}
+						quantidade={keys.length}
+						bgColor={Theme.PrimaryVariantColor}
+						loading={loading}
+					/>
 				</View>
-				<CustomListView
-					itemList={emprestimos.data}
-				/>
+				<View style={styles.lista}>
+					<View style={{flexDirection: 'row', alignItems:'center', justifyContent:'space-between'}}>
+						<Text style={styles.tituloLista}>Lista de Empréstimos:</Text>
+						<FilterPopUpMenu filter={setFilter} />
+					</View>
+					{
+						loading ?
+						<View style={{flex: 1, alignItems:'center', justifyContent:'center'}}><Loading /></View>
+						:
+						<CustomListView itemList={loans} type='emprestimo' />
+					}
+				</View>
 			</View>
-		</View>
+			<FabLoan chaves={keys} />
+		</>
 	);
 };

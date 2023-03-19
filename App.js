@@ -3,6 +3,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider } from './src/contexts/auth'
+import { SelectProvider } from '@mobile-reality/react-native-select-pro';
 import  Routes  from './src/routes'
 import Theme from './src/themes/LabKeyTheme';
 
@@ -13,9 +14,11 @@ export default function App() {
         style="light"
         backgroundColor={Theme.PrimaryVariantColor}
       />
-      <AuthProvider>
-        <Routes />
-      </AuthProvider>
+      <SelectProvider>
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
+      </SelectProvider>
     </SafeAreaProvider>
   );
 };

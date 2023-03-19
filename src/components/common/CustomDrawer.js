@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Image, StyleSheet, Text } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
-import {authUser} from '../../contexts/auth';
+import { authUser } from '../../contexts/auth';
+import auth from '@react-native-firebase/auth';
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import Theme from '../../themes/LabKeyTheme';
 
@@ -28,8 +29,8 @@ export default function CustomDrawer(props){
               </View>
 
               <View style={{ justifyContent:'center', marginLeft: 8 }}>
-                <Text style={[styles.text, { fontSize: 20, marginTop: -5 }]}>admin</Text>
-                <Text style={[styles.text, { fontSize: 14, marginTop: -5 }]}>admin@email.com</Text>
+                <Text style={[styles.text, { fontSize: 20, marginTop: -5 }]}>{auth().currentUser.displayName}</Text>
+                <Text style={[styles.text, { fontSize: 14, marginTop: -5 }]}>{auth().currentUser.email}</Text>
               </View>
             </View>
 

@@ -7,18 +7,28 @@ import Theme from '../../themes/LabKeyTheme';
 export default function FilterPopUpMenu({ filter }) {
 
 	const [visible, setVisible] = useState(false);
+	const date = new Date();
+	const startDay = new Date(date.getFullYear(), date.getMonth(), 1);
+	const startEnd =  new Date(date.getFullYear(), date.getMonth() + 1, 0);
+	const startMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+	const endMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+	const start3Month = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+	const end3Month = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 	const options = [
 		{
+		  start: startDay,
+		  end: startEnd,
 		  label: 'Hoje',
-		  tableFilter: 1
 		},
 		{
-		  label: 'Esse Mês',
-		  tableFilter: 2
+		  start: startMonth,
+		  end: endMonth,
+		  label: 'Esse Mês'
 		},
 		{
-		  label: 'Últimos 6 messes',
-		  tableFilter: 3
+		  start: start3Month,
+		  end: end3Month,
+		  label: 'Últimos 3 messes',
 		}
 	];
 

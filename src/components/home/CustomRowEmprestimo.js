@@ -3,7 +3,7 @@ import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import ContextMenu from './ContextMenu';
 
-export default function CustomRow({nome, contato, chave, horario, devolvida}) {
+export default function CustomRowEmprestimo({nome, contato, chave, horario, devolvida}) {
   const [visibleModal, setVisibleModal] = useState(false);
   const closeModal = () => setVisibleModal(false);
   const openContextMenu = () => {
@@ -19,7 +19,7 @@ export default function CustomRow({nome, contato, chave, horario, devolvida}) {
           delayLongPress={500}>
           <View>
             <Text style={styles.header}>{nome} - Chave: {chave}</Text>
-            <Text>horário: {horario}</Text>
+            <Text>data: {horario}</Text>
           </View>
           <Icon name={devolvida ? 'check-circle-outline' : 'alert-circle'}
             color={devolvida ? 'green' : 'red'}

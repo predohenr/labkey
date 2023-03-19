@@ -13,6 +13,7 @@ export default function InputEmail({ value, setEmail }) {
         style={styles.inputLogin}
         cursorColor={Theme.PrimaryVariantColor}
         placeholder='Digite seu E-mail'
+        autoCapitalize='none'
         ref={(e) => { this.inputEmail = e }}
         inputMode='email'
         returnKeyType='next'

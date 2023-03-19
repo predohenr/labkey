@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, FlatList, StyleSheet, Text } from 'react-native';
-import CustomRow from './CustomRow';
+import CustomRowEmprestimo from './CustomRowEmprestimo';
+import CustomRowChave from './CustomRowChave';
 
 const styles = StyleSheet.create({
     container: {
@@ -20,27 +21,50 @@ const styles = StyleSheet.create({
     }
 });
 
-const CustomListView = ({ itemList }) => (
-  <View style={styles.container}>
-    {itemList.length === 0 ? (
-      <View style={styles.viewNoData}>
-        <Text style={{fontSize: 18}}>Sem dados.</Text>
-      </View>
-    ) : (
-      <View style={styles.viewData} >
-        <FlatList
-          data={itemList}
-          renderItem={({ item }) => <CustomRow
-              nome={item.nome}
-              contato={item.contato}
-              chave={item.chave}
-              horario={item.horario}
-              devolvida={item.devolvida}
-          />}
-        />
-      </View>
-    )}
-  </View>
-);
+export default function CustomListView ({ itemList, type }){
 
-export default CustomListView;
+  if (type === 'emprestimo'){
+    return (
+      <View style={styles.container}>
+        {itemList.length === 0 ? (
+          <View style={styles.viewNoData}>
+            <Text style={{fontSize: 18}}>Sem dados.</Text>
+          </View>
+        ) : (
+          <View style={styles.viewData} >
+            <FlatList
+              data={itemList}
+              renderItem={({ item }) => <CustomRowEmprestimo
+                  nome={item.name}
+                  contato={item.contact}
+                  chave={item.key_name}
+                  horario={item.create_at.toDate().toLocaleString('pt-BR')}
+                  devolvida={item.returned}
+              />}
+            />
+          </View>
+        )}
+      </View>
+    )
+  } else if (type === 'chave') {
+    return (
+      <View style={styles.container}>
+        {itemList.length === 0 ? (
+          <View style={styles.viewNoData}>
+            <Text style={{fontSize: 18}}>Sem dados.</Text>
+          </View>
+        ) : (
+          <View style={styles.viewData} >
+            <FlatList
+              data={itemList}
+              renderItem={({ item }) => <CustomRowChave
+                  nome={item.name}
+                  disponivel={item.available}
+              />}
+            />
+          </View>
+        )}
+      </View>
+    )
+  }
+};

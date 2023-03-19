@@ -6,4 +6,11 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: Theme.BackgroundColor,
   },
+  lista: {
+    flex: 1,
+    padding: 10,
+  },
+  tituloLista:{
+    fontSize: 22,
+  },
 });
