@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {authUser} from '../contexts/auth';
+import { authUser } from '../contexts/auth';
+import { DataProvider } from '../contexts/data';
 import AuthRoutes from './AuthRoutes';
 import AppRoutes from './AppRoutes';
 
@@ -12,7 +13,14 @@ export default function Routes(){
   return(
     <NavigationContainer>
       <SafeAreaView style={{flex: 1}}>
-        {signed ? <AppRoutes /> : <AuthRoutes />}
+        {
+          signed ? 
+            <DataProvider>
+              <AppRoutes />
+            </DataProvider> 
+          : 
+            <AuthRoutes />
+        }
       </SafeAreaView>
     </NavigationContainer>
   )

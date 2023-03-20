@@ -2,33 +2,17 @@ import React, { useState } from "react";
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { IconButton } from '@react-native-material/core';
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
+import { useFilter } from "../../contexts/data";
 import Theme from '../../themes/LabKeyTheme';
 
-export default function FilterPopUpMenu({ filter }) {
+export default function FilterPopUpMenu() {
 
+	const { setIsLoading, setFilter, options } = useFilter();
 	const [visible, setVisible] = useState(false);
-	const date = new Date();
-	const startMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-	const end = new Date(date.setHours(23, 59, 59, 999));
-	const startDay = new Date(date.setHours(0, 0, 0, 0));
-	const start3Month = new Date(date.getFullYear(), date.getMonth() - 2);
-	const options = [
-		{
-		  start: startDay,
-		  end: end,
-		  label: 'Hoje',
-		},
-		{
-		  start: startMonth,
-		  end: end,
-		  label: 'Esse Mês'
-		},
-		{
-		  start: start3Month,
-		  end: end,
-		  label: 'Últimos 3 messes',
-		}
-	];
+	const press = (i) => {
+		setIsLoading(true);
+		setFilter(options[i]);
+	};
 
   return (
 		<>
@@ -43,7 +27,7 @@ export default function FilterPopUpMenu({ filter }) {
 							<View
 							style={[styles.popOption, { borderBottomWidth: i === options.length - 1 ? 0 : 1 }]}
 							key={i}>
-								<TouchableOpacity onPress={() => {filter({start: op.start, end: op.end, label:op.label})}} >
+								<TouchableOpacity onPress={() => press(i)} >
 									<Text style={styles.popOptionText}>{op.label}</Text>
 								</TouchableOpacity>
 							</View>

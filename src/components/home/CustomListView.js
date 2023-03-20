@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 });
 
 export default function CustomListView ({ itemList, type }){
-
+  console.log('Renderizou');
   if (type === 'emprestimo'){
     return (
       <View style={styles.container}>
