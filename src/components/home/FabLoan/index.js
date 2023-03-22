@@ -8,9 +8,11 @@ import { Modalize } from 'react-native-modalize';
 import { RFPercentage } from "react-native-responsive-fontsize";
 import Theme from '../../../themes/LabKeyTheme';
 import styles from './styles'
+import { useKeys } from '../../../contexts/data';
 
-export default function FabLoan({ chaves }) {
-  
+export default function FabLoan() {
+
+  const { keys } = useKeys(true);
   const modalizeRef = useRef(null);
   const [name, setName] = useState('');
   const [contact, setContact] = useState('');
@@ -38,7 +40,7 @@ export default function FabLoan({ chaves }) {
         });
       });
     };
-    
+
   };
   const [fab, setFab] = useState({icon: 'plus', action: openModal});
   const open = () => {
@@ -75,9 +77,9 @@ export default function FabLoan({ chaves }) {
           contato={contact}
           setContato={setContact}
           setChave={setKey}
-          chaves={chaves}
+          chaves={keys}
          />
       </Modalize>
     </>
   );
-};
+}

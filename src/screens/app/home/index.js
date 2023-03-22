@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Text, View } from 'react-native';
-import Loading from '../../../components/common/Loading';
 import FabLoan from '../../../components/home/FabLoan';
 import styles from './styles';
 import Card from '../../../components/home/Card';
-import CustomListView from '../../../components/home/CustomListView';
 import FilterPopUpMenu from '../../../components/home/FilterPopUpMenu';
 import Theme from '../../../themes/LabKeyTheme';
 import { useDataHome } from '../../../contexts/data';
+import List from '../../../components/home/List';
+import Loading from '../../../components/common/Loading'
 
 export default function Home(){
 
-	const { loans, keys, isLoading, filterLabel } = useDataHome();
-  
+	const { loans, keys, isLoading,filterLabel } = useDataHome();
+
 	return (
 		<>
 			<View style={styles.container}>
@@ -20,30 +20,25 @@ export default function Home(){
 					<Card
 						titulo='Chaves Emprestadas'
 						label={filterLabel}
-						quantidade={loans.length}
+						quantidade={loans}
 						bgColor={Theme.PrimaryColor}
 					/>
 					<Card
 						titulo='Chaves Disponíveis'
 						label={null}
-						quantidade={keys.length}
+						quantidade={keys}
 						bgColor={Theme.PrimaryVariantColor}
 					/>
 				</View>
 				<View style={styles.lista}>
-					<View style={{flexDirection: 'row', alignItems:'center', justifyContent:'space-between'}}>
+					<View style={styles.listaHeader}>
 						<Text style={styles.tituloLista}>Lista de Empréstimos:</Text>
 						<FilterPopUpMenu />
 					</View>
-					{
-						isLoading ?
-						<View style={{flex: 1, alignItems:'center', justifyContent:'center'}}><Loading /></View>
-						:
-						<CustomListView itemList={loans} type='emprestimo' />
-					}
+          {isLoading ? <View style={styles.loading}><Loading /></View> : <List />}
 				</View>
 			</View>
-			<FabLoan chaves={keys} />
+			<FabLoan />
 		</>
 	);
-};
+}

@@ -10,7 +10,18 @@ export default StyleSheet.create({
     flex: 1,
     padding: 10,
   },
+  listaHeader:{
+    flexDirection: 'row',
+    alignItems:'center',
+    justifyContent:'space-between',
+    marginBottom: 10,
+  },
   tituloLista:{
     fontSize: 22,
+  },
+  loading:{
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

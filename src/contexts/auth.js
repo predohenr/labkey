@@ -14,8 +14,9 @@ export const AuthProvider = ({ children }) =>{
       if (authUser) {
         setUser(authUser);
       } else {
-        loading && setLoading(false);
-      };
+        const checkLoading = () => loading && setLoading(false);
+        checkLoading();
+      }
     });
     return subscriber;
   }, []);
@@ -27,13 +28,13 @@ export const AuthProvider = ({ children }) =>{
         setLoading(false);
         setAuthErro(error.code);
       });
-  };
+  }
 
   function signOut(){
     auth().signOut(user).then(() => {
       setUser(null);
     });
-  };
+  }
 
   return(
     <AuthContext.Provider value={{
@@ -53,4 +54,4 @@ export const AuthProvider = ({ children }) =>{
 
 export function authUser(){
   return useContext(AuthContext);
-};
+}
