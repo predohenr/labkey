@@ -5,7 +5,10 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended"
+
     ],
     "overrides": [
     ],
@@ -14,7 +17,10 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "react-hooks",
+        "@typescript-eslint",
+        "prettier"
     ],
     "rules": {
         "react/jsx-filename-extension": [
@@ -25,6 +31,13 @@
         ],
         "global-require": "off",
         "import/prefer-default-export": "off",
-        "no-unused-expressions": ["error", { "allowTaggedTemplates": true }]
+        "no-unused-expressions": ["error", { "allowTaggedTemplates": true }],
+        "import/no-unresolved": "error",
+        "prettier/prettier": "error"
+    },
+    "settings": {
+      "import/resolver": {
+        "typescript": {}
+      }
     }
 }
