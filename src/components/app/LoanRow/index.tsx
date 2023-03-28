@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
-import Icon from "@expo/vector-icons/MaterialCommunityIcons";
+import Icon from '@expo/vector-icons/MaterialCommunityIcons';
+import { useTheme } from 'styled-components/native';
 import ModalLoan from '../ModalLoan';
-import styles from './styles';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import { Container, Touch, TextContainer, Title, Details } from './styles';
 
 export default function LoanRow({ ...props }) {
-
+  const theme = useTheme();
   const item = props.item;
   const [visibleModal, setVisibleModal] = useState(false);
   const closeModal = () => setVisibleModal(false);
@@ -13,24 +14,28 @@ export default function LoanRow({ ...props }) {
     if (!item.returned) {
       setVisibleModal(true);
     }
-  }
+  };
 
-  return(
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.touch}
-        onLongPress={openContextMenu}
-        delayLongPress={500}>
-        <View>
-          <Text style={styles.header}>{item.name} - Chave: {item.key_name}</Text>
-          <Text>data: {item.create_at.toDate().toLocaleString('pt-BR', { timeZone: 'UTC' })}</Text>
-        </View>
+  return (
+    <Container>
+      <Touch onLongPress={openContextMenu} delayLongPress={500}>
+        <TextContainer>
+          <Title>
+            {item.name} - Chave: {item.key_name}
+          </Title>
+          <Details>
+            data:{' '}
+            {item.create_at
+              .toDate()
+              .toLocaleString('pt-BR', { timeZone: 'UTC' })}
+          </Details>
+        </TextContainer>
         <Icon
           name={item.returned ? 'check-circle-outline' : 'alert-circle'}
-          color={item.returned ? 'green' : 'red'}
-          size={30}
+          color={item.returned ? theme.COLORS.GREEN_500 : theme.COLORS.RED_500}
+          size={RFPercentage(3.8)}
         />
-      </TouchableOpacity>
+      </Touch>
       <ModalLoan
         id={item.id}
         key_id={item.key_id}
@@ -41,6 +46,6 @@ export default function LoanRow({ ...props }) {
         key_name={item.key_name}
         create_at={item.create_at}
       />
-    </View>
+    </Container>
   );
 }

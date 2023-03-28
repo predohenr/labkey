@@ -1,48 +1,55 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 import FabLoan from '../../../components/app/FabLoan';
-import styles from './styles';
+import {
+  Container,
+  ContainerCards,
+  ContainerLista,
+  HeaderLista,
+  TitleLista,
+  ContainerLoading,
+} from './styles';
 import Card from '../../../components/app/Card';
-import FilterPopUpMenu from '../../../components/app/FilterPopUpMenu';
-import Theme from '../../../themes/LabKeyTheme';
+import Filter from '../../../components/app/Filter';
+import { useTheme } from 'styled-components/native';
 import { useDataHome } from '../../../contexts/data';
 import List from '../../../components/app/List';
 import Loading from '../../../components/common/Loading';
 
 export default function Home() {
+  const theme = useTheme();
   const { loans, keys, isLoading, filterLabel } = useDataHome();
 
   return (
     <>
-      <View style={styles.container}>
-        <View style={styles.cards}>
+      <Container>
+        <ContainerCards>
           <Card
             titulo="Chaves Emprestadas"
             label={filterLabel}
             quantidade={loans}
-            bgColor={Theme.PrimaryColor}
+            bgColor={theme.COLORS.PRIMARY_500}
           />
           <Card
             titulo="Chaves Disponíveis"
             label={null}
             quantidade={keys}
-            bgColor={Theme.PrimaryVariantColor}
+            bgColor={theme.COLORS.PRIMARY_700}
           />
-        </View>
-        <View style={styles.lista}>
-          <View style={styles.listaHeader}>
-            <Text style={styles.tituloLista}>Lista de Empréstimos:</Text>
-            <FilterPopUpMenu />
-          </View>
+        </ContainerCards>
+        <ContainerLista>
+          <HeaderLista>
+            <TitleLista>Lista de Empréstimos:</TitleLista>
+            <Filter />
+          </HeaderLista>
           {isLoading ? (
-            <View style={styles.loading}>
+            <ContainerLoading>
               <Loading />
-            </View>
+            </ContainerLoading>
           ) : (
             <List />
           )}
-        </View>
-      </View>
+        </ContainerLista>
+      </Container>
       <FabLoan />
     </>
   );

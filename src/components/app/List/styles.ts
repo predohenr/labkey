@@ -1,19 +1,26 @@
-import { StyleSheet } from "react-native";
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import styled from 'styled-components/native';
 
-export default StyleSheet.create({
-  container: {
-    flex: 1,
-    marginHorizontal: 10,
-    marginBottom: 30,
-  },
-  viewNoData:{
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  viewData:{
-    flex: 1,
-    borderTopWidth: 1,
-    borderTopColor: '#999999',
-  },
-});
+export const Container = styled.View`
+  flex: 1;
+  margin-horizontal: ${RFPercentage(1.2)}px;
+  margin-bottom: ${RFPercentage(3.8)}px;
+`;
+
+export const Data = styled.View`
+  flex: 1;
+  border-top-width: 1px;
+  border-top-color: ${({ theme }) => theme.COLORS.GRAY_9};
+`;
+
+export const NoData = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Message = styled.Text`
+  font-size: ${RFPercentage(2.8)}px;
+  font-family: ${({ theme }) => theme.FONTS.MEDIUM};
+  color: ${({ theme }) => theme.COLORS.OnBACKGROUND};
+`;
