@@ -2,7 +2,7 @@ import React from 'react';
 import { Mensagem } from './styles';
 
 interface MsgErrorInterface {
-  erroLogin: string;
+  erroLogin: string | null;
 }
 
 export default function MsgError({ erroLogin }: MsgErrorInterface) {

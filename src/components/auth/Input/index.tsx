@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { useTheme } from 'styled-components/native';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Container, InputField, InputContainer, IconStyle } from './styles';
 import { TextInputProps } from 'react-native';
 
@@ -48,7 +49,7 @@ export default function Input({ ...rest }: Props) {
       <Icon
         name={rest.customIcon}
         style={IconStyle}
-        size={35}
+        size={RFPercentage(4.4)}
         color={theme.COLORS.OnSURFACE}
       />
       <InputContainer>
@@ -56,7 +57,7 @@ export default function Input({ ...rest }: Props) {
         {isSenha && (
           <Icon
             name={passwordEye.icon}
-            size={35}
+            size={RFPercentage(4.4)}
             color={theme.COLORS.PRIMARY_700}
             style={IconStyle}
             onPress={changeVisibility}

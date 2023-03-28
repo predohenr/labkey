@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
   flex: 1;
@@ -12,14 +13,14 @@ export const LogoContainer = styled.View`
 `;
 
 export const ImgLogo = styled.Image`
-  height: 200px;
-  width: 200px;
+  height: ${RFPercentage(25.5)}px;
+  width: ${RFPercentage(25.5)}px;
 `;
 
 export const FormContainer = styled.View`
   flex: 1;
   justify-content: flex-start;
   align-items: center;
-  padding-top: 8px;
+  padding-top: ${RFPercentage(1)}px;
   padding-horizontal: 5%;
 `;

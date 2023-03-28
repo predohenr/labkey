@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Input from '../Input';
 import Button from '../Button';
 import MsgError from '../MsgError';
@@ -42,7 +42,6 @@ export default function FormLogin({
       />
       <MsgError erroLogin={erroLogin} />
       <Button onPress={submit} />
-      {/* <Button title="Entrar" color={'blue'} onPress={submit} /> */}
     </>
   );
 }
