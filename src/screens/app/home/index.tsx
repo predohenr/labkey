@@ -6,33 +6,31 @@ import {
   ContainerLista,
   HeaderLista,
   TitleLista,
-  ContainerLoading,
 } from './styles';
 import Card from '../../../components/app/Card';
 import Filter from '../../../components/app/Filter';
 import { useTheme } from 'styled-components/native';
 import { useDataHome } from '../../../contexts/data';
 import List from '../../../components/app/List';
-import Loading from '../../../components/common/Loading';
 
 export default function Home() {
   const theme = useTheme();
-  const { loans, keys, isLoading, filterLabel } = useDataHome();
+  const { loans, keys, filterLabel } = useDataHome();
 
   return (
     <>
       <Container>
         <ContainerCards>
           <Card
-            titulo="Chaves Emprestadas"
+            title="Chaves Emprestadas"
             label={filterLabel}
-            quantidade={loans}
+            quantity={loans}
             bgColor={theme.COLORS.PRIMARY_500}
           />
           <Card
-            titulo="Chaves Disponíveis"
+            title="Chaves Disponíveis"
             label={null}
-            quantidade={keys}
+            quantity={keys}
             bgColor={theme.COLORS.PRIMARY_700}
           />
         </ContainerCards>
@@ -41,13 +39,7 @@ export default function Home() {
             <TitleLista>Lista de Empréstimos:</TitleLista>
             <Filter />
           </HeaderLista>
-          {isLoading ? (
-            <ContainerLoading>
-              <Loading />
-            </ContainerLoading>
-          ) : (
-            <List />
-          )}
+          <List />
         </ContainerLista>
       </Container>
       <FabLoan />

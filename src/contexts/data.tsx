@@ -7,6 +7,11 @@ interface Option {
   label: string;
 }
 
+interface LoadingStatus {
+  loans: boolean;
+  keys: boolean;
+}
+
 interface Values {
   loans: Array<any>;
   keys: Array<any>;
@@ -20,7 +25,8 @@ interface Values {
 const DataContext = createContext<Values>({} as Values);
 
 export const DataProvider = ({ children }: { children?: React.ReactNode }) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingLoans, setIsLoadingLoans] = useState<boolean>(true);
+  const [isLoadingKeys, setIsLoadingKeys] = useState<boolean>(true);
   const [loans, setLoans] = useState<Array<any>>([]);
   const [keys, setKeys] = useState<Array<any>>([]);
   const date = new Date();
@@ -42,7 +48,7 @@ export const DataProvider = ({ children }: { children?: React.ReactNode }) => {
   const [filter, setFilter] = useState<Option>(options[1]);
 
   useEffect(() => {
-    const userId = auth().currentUser!.uid;
+    const userId = auth().currentUser?.uid;
 
     const subscriberLoans = firestore()
       .collection(`users/${userId}/loans`)
@@ -63,7 +69,6 @@ export const DataProvider = ({ children }: { children?: React.ReactNode }) => {
           return { value: doc.id, label: row.name, available: row.available };
         });
         setKeys(data);
-        setIsLoading(false);
       });
 
     return () => {
@@ -77,8 +82,8 @@ export const DataProvider = ({ children }: { children?: React.ReactNode }) => {
       value={{
         loans: loans,
         keys: keys,
-        isLoading: isLoading,
-        setIsLoading: setIsLoading,
+        isLoading: isLoadingLoans || isLoadingKeys,
+        setIsLoading: setIsLoadingLoans,
         filter: filter,
         setFilter: setFilter,
         options: options,
@@ -115,16 +120,16 @@ export function useFilter() {
 }
 
 export function useLoans() {
-  const { loans, isLoading } = useContext(DataContext);
-  return { loans: loans, isLoading: isLoading };
+  const { loans } = useContext(DataContext);
+  return { loans: loans };
 }
 
 export function useKeys(onlyAvailable = false) {
-  const { keys, isLoading } = useContext(DataContext);
+  const { keys } = useContext(DataContext);
   if (onlyAvailable === true) {
     return { keys: keys.filter((key) => key.available === true) };
   }
-  return { keys: keys, isLoading: isLoading };
+  return { keys: keys };
 }
 
 export function useIsLoading() {
