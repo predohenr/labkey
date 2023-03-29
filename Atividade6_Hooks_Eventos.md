@@ -1,15 +1,15 @@
-const estilo = StyleSheet.create({
-  senhaerrada: {
-    color: 'red',
-  },
-  senhacerto: {
-    color: 'green',
-  },
-  container: {
-    padding: 10,
-  },
-});
-function App(): JSX.Element {
+const estilo = StyleSheet.create({  
+  senhaerrada: {  
+    color: 'red',  
+  },  
+  senhacerto: {  
+    color: 'green',  
+  },  
+  container: {  
+    padding: 10,  
+  },  
+});  
+function App(): JSX.Element {  
   const [user, setUser] = useState('');
   const [senha, setSenha] = useState('');
   const [auth, setAuth] = useState(null);
