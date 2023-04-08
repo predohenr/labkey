@@ -1,63 +1,28 @@
 import React from 'react';
-import { FlatList } from 'react-native';
-import { useLoans, useKeys, useIsLoading } from '../../../contexts/data';
-import { useRoute } from '@react-navigation/native';
-import LoanRow from '../LoanRow';
-import KeyRow from '../KeyRow';
-import { Container, Data, NoData, Message, ContainerLoading } from './styles';
-import Loading from '../../common/Loading';
+import BigList, { BigListProps } from 'react-native-big-list';
+import { Container, Data, NoData, Message } from './styles';
 
-export default function List() {
-  const route = useRoute();
-  const { isLoading } = useIsLoading();
-  const { loans } = useLoans();
-  const { keys } = useKeys();
-
-  if (isLoading) {
+export default function List({ ...rest }: BigListProps<any>) {
+  if (rest.data?.length == 0) {
     return (
-      <ContainerLoading>
-        <Loading />
-      </ContainerLoading>
+      <NoData>
+        <Message>Sem dados</Message>
+      </NoData>
     );
   }
 
-  let content = (
-    <NoData>
-      <Message>Sem dados</Message>
-    </NoData>
+  return (
+    <Container>
+      <Data>
+        <BigList
+          data={rest.data}
+          renderHeader={rest.renderHeader}
+          renderFooter={rest.renderFooter}
+          renderItem={rest.renderItem}
+          keyExtractor={rest.keyExtractor}
+          itemHeight={rest.itemHeight}
+        />
+      </Data>
+    </Container>
   );
-
-  switch (route.name) {
-    case 'Início':
-      if (loans.length > 0) {
-        content = (
-          <Data>
-            <FlatList
-              keyExtractor={(item) => item.id}
-              data={loans}
-              renderItem={(item) => <LoanRow item={item.item} />}
-            />
-          </Data>
-        );
-      }
-      break;
-    case 'Lista de Chaves':
-      if (keys.length > 0) {
-        const renderItem = ({ item }: any) => {
-          return <KeyRow item={item} />;
-        };
-        content = (
-          <Data>
-            <FlatList
-              keyExtractor={(item) => item.value}
-              data={keys}
-              renderItem={renderItem}
-            />
-          </Data>
-        );
-      }
-      break;
-  }
-
-  return <Container>{content}</Container>;
 }

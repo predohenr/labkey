@@ -4,7 +4,7 @@ import { useTheme } from 'styled-components/native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Container, Title } from './styles';
 
-export default function KeyRow({ ...props }) {
+export default function KeyRow({ ...props }: any) {
   const theme = useTheme();
   const item = props.item;
 

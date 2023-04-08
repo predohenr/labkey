@@ -6,6 +6,7 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { useTheme } from 'styled-components/native';
 import Home from '../screens/app/home';
 import Keys from '../screens/app/keys';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
 const Drawer = createDrawerNavigator();
 
@@ -19,7 +20,10 @@ export default function AppRoutes() {
         drawerActiveBackgroundColor: theme.COLORS.PRIMARY_500,
         drawerActiveTintColor: theme.COLORS.OnSURFACE,
         drawerInactiveTintColor: theme.COLORS.GRAY_9,
-        drawerLabelStyle: { marginLeft: -25 },
+        drawerLabelStyle: {
+          marginLeft: -RFPercentage(3),
+          fontFamily: theme.FONTS.MEDIUM,
+        },
       }}
       initialRouteName="Início"
     >
@@ -28,7 +32,7 @@ export default function AppRoutes() {
         component={Home}
         options={{
           drawerIcon: ({ color }) => (
-            <Icon name="home-outline" size={30} color={color} />
+            <Icon name="home-outline" size={RFPercentage(3.5)} color={color} />
           ),
         }}
       />
@@ -37,7 +41,11 @@ export default function AppRoutes() {
         component={Keys}
         options={{
           drawerIcon: ({ color }) => (
-            <Icon name="format-list-bulleted" size={30} color={color} />
+            <Icon
+              name="format-list-bulleted"
+              size={RFPercentage(3.5)}
+              color={color}
+            />
           ),
         }}
       />

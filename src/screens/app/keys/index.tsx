@@ -1,30 +1,46 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import styles from './styles';
+import {
+  Container,
+  ContainerList,
+  Header,
+  Titulo,
+  ContainerLoading,
+} from './styles';
 import FabKey from '../../../components/app/FabKey';
 import List from '../../../components/app/List';
-import { useIsLoading } from '../../../contexts/data';
+import { useKeys } from '../../../contexts/data';
 import Loading from '../../../components/common/Loading';
+import KeyRow from '../../../components/app/KeyRow';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
 export default function Keys() {
-  const { isLoading } = useIsLoading();
+  const { keys, isLoading } = useKeys();
+  const HEIGHT = RFPercentage(6.4);
+  const renderItem = ({ item }: any) => <KeyRow item={item} />;
 
   return (
     <>
-      <View style={styles.container}>
-        <View style={styles.lista}>
-          <View style={styles.listaHeader}>
-            <Text style={styles.tituloLista}>Lista das suas chaves:</Text>
-          </View>
+      <Container>
+        <ContainerList>
+          <Header>
+            <Titulo>Lista das suas chaves:</Titulo>
+          </Header>
           {isLoading ? (
-            <View style={styles.loading}>
+            <ContainerLoading>
               <Loading />
-            </View>
+            </ContainerLoading>
           ) : (
-            <List />
+            <List
+              data={keys}
+              renderHeader={() => {}}
+              renderFooter={() => {}}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.value}
+              itemHeight={HEIGHT}
+            />
           )}
-        </View>
-      </View>
+        </ContainerList>
+      </Container>
       <FabKey />
     </>
   );

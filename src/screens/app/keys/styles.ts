@@ -1,27 +1,30 @@
-import { StyleSheet } from "react-native";
-import Theme from "../../../themes/LabKeyTheme";
+import styled from 'styled-components/native';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
-export default StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Theme.BackgroundColor,
-  },
-  lista: {
-    flex: 1,
-    padding: 10,
-  },
-  listaHeader:{
-    flexDirection: 'row',
-    alignItems:'center',
-    justifyContent:'space-between',
-    marginBottom: 10,
-  },
-  tituloLista:{
-    fontSize: 22,
-  },
-  loading:{
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export const Container = styled.View`
+  flex: 1;
+  background-color: ${({ theme }) => theme.COLORS.BACKGROUND_700};
+`;
+
+export const ContainerList = styled.View`
+  flex: 1;
+  padding: ${RFPercentage(1.2)}px;
+`;
+
+export const Header = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: ${RFPercentage(1.2)}px;
+`;
+
+export const Titulo = styled.Text`
+  font-size: ${RFPercentage(2.8)}px;
+  font-family: ${({ theme }) => theme.FONTS.MEDIUM};
+`;
+
+export const ContainerLoading = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;

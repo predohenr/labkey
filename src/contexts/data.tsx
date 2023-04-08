@@ -59,16 +59,19 @@ export const DataProvider = ({ children }: { children?: React.ReactNode }) => {
           return { id: doc.id, ...doc.data() };
         });
         setLoans(data);
+        setIsLoadingLoans(false);
       });
 
     const subscriberKeys = firestore()
       .collection(`users/${userId}/keys`)
+      .orderBy('name', 'asc')
       .onSnapshot((querySnapshot) => {
         const data = querySnapshot.docs.map((doc) => {
           let row = doc.data();
           return { value: doc.id, label: row.name, available: row.available };
         });
         setKeys(data);
+        setIsLoadingKeys(false);
       });
 
     return () => {
@@ -100,9 +103,9 @@ export function useData() {
 
 export function useDataHome() {
   const { loans, keys, isLoading, filter } = useContext<Values>(DataContext);
-  const availableKeys = keys.filter((key) => key.available === true).length;
+  const availableKeys = keys.filter((key) => key.available === true);
   return {
-    loans: loans.length,
+    loans: loans,
     keys: availableKeys,
     isLoading: isLoading,
     filterLabel: filter.label,
@@ -125,11 +128,11 @@ export function useLoans() {
 }
 
 export function useKeys(onlyAvailable = false) {
-  const { keys } = useContext(DataContext);
+  const { keys, isLoading } = useContext(DataContext);
   if (onlyAvailable === true) {
     return { keys: keys.filter((key) => key.available === true) };
   }
-  return { keys: keys };
+  return { keys: keys, isLoading: isLoading };
 }
 
 export function useIsLoading() {

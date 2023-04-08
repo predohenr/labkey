@@ -28,3 +28,9 @@ export const TitleLista = styled.Text`
   color: ${({ theme }) => theme.COLORS.OnBACKGROUND};
   font-family: ${({ theme }) => theme.FONTS.MEDIUM};
 `;
+
+export const ContainerLoading = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;

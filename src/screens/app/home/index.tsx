@@ -6,16 +6,22 @@ import {
   ContainerLista,
   HeaderLista,
   TitleLista,
+  ContainerLoading,
 } from './styles';
 import Card from '../../../components/app/Card';
 import Filter from '../../../components/app/Filter';
 import { useTheme } from 'styled-components/native';
 import { useDataHome } from '../../../contexts/data';
 import List from '../../../components/app/List';
+import LoanRow from '../../../components/app/LoanRow';
+import Loading from '../../../components/common/Loading';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
 export default function Home() {
   const theme = useTheme();
-  const { loans, keys, filterLabel } = useDataHome();
+  const { loans, keys, filterLabel, isLoading } = useDataHome();
+  const HEIGHT = RFPercentage(6.7);
+  const renderItem = ({ item }: any) => <LoanRow item={item} />;
 
   return (
     <>
@@ -24,13 +30,13 @@ export default function Home() {
           <Card
             title="Chaves Emprestadas"
             label={filterLabel}
-            quantity={loans}
+            quantity={loans.length}
             bgColor={theme.COLORS.PRIMARY_500}
           />
           <Card
             title="Chaves Disponíveis"
             label={null}
-            quantity={keys}
+            quantity={keys.length}
             bgColor={theme.COLORS.PRIMARY_700}
           />
         </ContainerCards>
@@ -39,7 +45,20 @@ export default function Home() {
             <TitleLista>Lista de Empréstimos:</TitleLista>
             <Filter />
           </HeaderLista>
-          <List />
+          {isLoading ? (
+            <ContainerLoading>
+              <Loading />
+            </ContainerLoading>
+          ) : (
+            <List
+              data={loans}
+              renderHeader={() => {}}
+              renderFooter={() => {}}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.id}
+              itemHeight={HEIGHT}
+            />
+          )}
         </ContainerLista>
       </Container>
       <FabLoan />

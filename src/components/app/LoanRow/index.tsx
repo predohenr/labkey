@@ -5,7 +5,7 @@ import ModalLoan from '../ModalLoan';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Container, Touch, TextContainer, Title, Details } from './styles';
 
-export default function LoanRow({ ...props }) {
+export default function LoanRow({ ...props }: any) {
   const theme = useTheme();
   const item = props.item;
   const [visibleModal, setVisibleModal] = useState(false);
