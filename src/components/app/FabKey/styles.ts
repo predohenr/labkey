@@ -11,12 +11,12 @@ export const Container = styled.View`
   background-color: transparent;
 `;
 
-export const Fab = styled.TouchableOpacity`
+export const Fab = styled.Pressable`
   justify-content: center;
   align-items: center;
-  height: ${RFPercentage(6.1)}px;
-  width: ${RFPercentage(6.1)}px;
-  border-radius: ${RFPercentage(3)}px;
+  height: ${RFPercentage(7)}px;
+  width: ${RFPercentage(7)}px;
+  border-radius: ${RFPercentage(3.5)}px;
   background-color: ${({ theme }) => theme.COLORS.SECONDARY_700};
   transform: rotate(-90deg);
 `;

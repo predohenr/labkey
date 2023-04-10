@@ -4,6 +4,7 @@ import { addKeyOnDatabase } from '../../../services';
 import { Modalize } from 'react-native-modalize';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import FormNewKey, { HeaderKey } from '../FormNewKey';
+import { useAnimationState, MotiView } from 'moti';
 import { Container, Fab } from './styles';
 import { useTheme } from 'styled-components/native';
 
@@ -14,6 +15,17 @@ type FabType = {
 
 export default function FabKey() {
   const theme = useTheme();
+  const buttonAnimated = useAnimationState({
+    open: {
+      transform: [{ rotate: '90deg' }],
+    },
+    close: {
+      transform: [{ rotate: '-90deg' }],
+    },
+  });
+  const handleAnimation = (state: 'open' | 'close') => {
+    buttonAnimated.transitionTo(state);
+  };
   const modalizeRef = useRef<Modalize>(null);
   const [keyName, setKeyName] = useState('');
   const openModal = () => modalizeRef.current?.open();
@@ -27,18 +39,26 @@ export default function FabKey() {
   };
   const [fab, setFab] = useState<FabType>({ icon: 'plus', action: openModal });
   const open = () => {
+    handleAnimation('open');
     setFab({ icon: 'key-plus', action: addNewKey });
   };
   const close = () => {
+    handleAnimation('close');
     setFab({ icon: 'plus', action: openModal });
   };
 
   return (
     <>
       <Container>
-        <Fab onPress={() => fab.action(keyName)}>
-          <Icon name={fab.icon} size={25} color={theme.COLORS.OnSURFACE} />
-        </Fab>
+        <MotiView state={buttonAnimated}>
+          <Fab onPress={() => fab.action(keyName)}>
+            <Icon
+              name={fab.icon}
+              size={RFPercentage(3.5)}
+              color={theme.COLORS.OnSURFACE}
+            />
+          </Fab>
+        </MotiView>
       </Container>
       <Modalize
         ref={modalizeRef}

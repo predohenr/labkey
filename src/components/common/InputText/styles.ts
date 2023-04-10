@@ -11,5 +11,5 @@ export const ContainerInputText = styled.TextInput`
   border-bottom-color: ${({ theme }) => theme.COLORS.OnBACKGROUND};
   margin-bottom: ${RFPercentage(3.8)}px;
   font-family: ${({ theme }) => theme.FONTS.REGULAR};
-  font-size: ${RFPercentage(1.7)}px;
+  font-size: ${RFPercentage(2)}px;
 `;

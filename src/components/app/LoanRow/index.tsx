@@ -8,6 +8,7 @@ import { Container, Touch, TextContainer, Title, Details } from './styles';
 export default function LoanRow({ ...props }: any) {
   const theme = useTheme();
   const item = props.item;
+  const hoje = new Date(new Date().setHours(0, 0, 0, 0));
   const [visibleModal, setVisibleModal] = useState(false);
   const closeModal = () => setVisibleModal(false);
   const openContextMenu = () => {
@@ -31,8 +32,14 @@ export default function LoanRow({ ...props }: any) {
           </Details>
         </TextContainer>
         <Icon
-          name={item.returned ? 'check-circle-outline' : 'alert-circle'}
-          color={item.returned ? theme.COLORS.GREEN_500 : theme.COLORS.RED_500}
+          name={item.returned ? 'check-circle-outline' : 'account-clock'}
+          color={
+            item.returned
+              ? theme.COLORS.GREEN_500
+              : item.create_at.toDate() < hoje
+              ? theme.COLORS.RED_500
+              : theme.COLORS.YELLOW_500
+          }
           size={RFPercentage(3.8)}
         />
       </Touch>

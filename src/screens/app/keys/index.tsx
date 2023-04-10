@@ -15,7 +15,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 
 export default function Keys() {
   const { keys, isLoading } = useKeys();
-  const HEIGHT = RFPercentage(6.4);
+  const HEIGHT = RFPercentage(6.5);
   const renderItem = ({ item }: any) => <KeyRow item={item} />;
 
   return (

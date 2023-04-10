@@ -26,7 +26,9 @@ export default function CustomAppBar() {
       subtitleStyle={{ fontFamily: theme.FONTS.REGULAR }}
       leading={(props) => (
         <IconButton
-          icon={(props) => <Icon name="menu" {...props} />}
+          icon={(props) => (
+            <Icon name="menu" size={RFPercentage(3)} color={props.color} />
+          )}
           {...props}
           onPress={openSideMenu}
         />

@@ -38,7 +38,7 @@ export default function FromNewLoan({
         paddingLeft: RFPercentage(0.6),
       },
       text: {
-        fontSize: RFPercentage(1.7),
+        fontSize: RFPercentage(2),
       },
     },
     option: {
@@ -47,7 +47,7 @@ export default function FromNewLoan({
         borderTopColor: theme.COLORS.GRAY_9,
       },
       text: {
-        fontSize: RFPercentage(1.7),
+        fontSize: RFPercentage(2),
       },
     },
     optionsList: {

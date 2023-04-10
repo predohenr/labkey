@@ -3,15 +3,9 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { addLoanOnDataBase, KeyForLoan } from '../../../services';
 import FormNewLoan, { HeaderLoan } from '../FormNewLoan';
 import { Modalize } from 'react-native-modalize';
-import {
-  useSharedValue,
-  useAnimatedStyle,
-  interpolate,
-  withTiming,
-} from 'react-native-reanimated';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Container, Fab } from './styles';
-import Animated from 'react-native-reanimated';
+import { useAnimationState, MotiView } from 'moti';
 import { useKeys } from '../../../contexts/data';
 import { useTheme } from 'styled-components/native';
 
@@ -22,19 +16,16 @@ type FabType = {
 
 export default function FabLoan() {
   const theme = useTheme();
-  const rotatePosition = useSharedValue(0);
-  const rotateAnimated = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {
-          rotate: `${interpolate(rotatePosition.value, [0, 1], [0, 90])}deg`,
-        },
-      ],
-    };
+  const buttonAnimated = useAnimationState({
+    open: {
+      transform: [{ rotate: '90deg' }],
+    },
+    close: {
+      transform: [{ rotate: '-90deg' }],
+    },
   });
-  const handleRotate = () => {
-    const newValue = rotatePosition.value === 0 ? 1 : 0;
-    rotatePosition.value = withTiming(newValue, { duration: 300 });
+  const handleAnimation = (state: 'open' | 'close') => {
+    buttonAnimated.transitionTo(state);
   };
   const { keys } = useKeys(true);
   const modalizeRef = useRef<Modalize>(null);
@@ -59,29 +50,26 @@ export default function FabLoan() {
   };
   const [fab, setFab] = useState<FabType>({ icon: 'plus', action: openModal });
   const open = () => {
-    handleRotate();
+    handleAnimation('open');
     setFab({ icon: 'account-key', action: addNewLoan });
   };
   const close = () => {
-    handleRotate();
+    handleAnimation('close');
     setFab({ icon: 'plus', action: openModal });
   };
 
   return (
     <>
       <Container>
-        <Fab
-          onPress={() => fab.action(name, contact, key)}
-          style={rotateAnimated}
-        >
-          <Animated.View>
+        <MotiView state={buttonAnimated}>
+          <Fab onPress={() => fab.action(name, contact, key)}>
             <Icon
               name={fab.icon}
-              size={RFPercentage(3)}
+              size={RFPercentage(3.5)}
               color={theme.COLORS.OnSURFACE}
             />
-          </Animated.View>
-        </Fab>
+          </Fab>
+        </MotiView>
       </Container>
       <Modalize
         ref={modalizeRef}
