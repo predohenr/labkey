@@ -1,26 +1,29 @@
 import React from 'react';
-import { Text, View } from "react-native";
-import InputText from "../../common/InputText";
-import styles from './styles'
+import InputText from '../../common/InputText';
+import { Container, Header, Title } from './styles';
 
-export default function FormNewKey({ text, setText }){
-
-  return(
-    <View style={styles.body}>
-      <InputText 
-        value={text}
-        setText={setText}
-        placeholder='Digite o nome da chave'
-        mode='text'
-        />
-    </View>
-  );
+type FormKeyProps = {
+  text: string;
+  setText: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export function HeaderKey(){
+export default function FormNewKey({ text, setText }: FormKeyProps) {
   return (
-    <View style={styles.header}>
-      <Text style={styles.title}>Cadastrar Nova Chave:</Text>
-    </View>
+    <Container>
+      <InputText
+        value={text}
+        onChangeText={setText}
+        placeholder="Digite o nome da chave"
+        autoCapitalize="words"
+      />
+    </Container>
   );
-};
+}
+
+export function HeaderKey() {
+  return (
+    <Header>
+      <Title>Cadastrar Nova Chave:</Title>
+    </Header>
+  );
+}

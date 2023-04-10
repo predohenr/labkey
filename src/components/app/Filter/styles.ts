@@ -15,6 +15,7 @@ export const PopUpMenu = styled.View`
   border-width: 1px;
   border-color: ${({ theme }) => theme.COLORS.OnBACKGROUND};
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND_500};
+  elevation: 3;
 `;
 
 export const PopOption = styled.View`

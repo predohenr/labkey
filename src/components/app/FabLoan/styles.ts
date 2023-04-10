@@ -18,4 +18,5 @@ export const Fab = styled.TouchableOpacity`
   width: ${RFPercentage(6.1)}px;
   border-radius: ${RFPercentage(3)}px;
   background-color: ${({ theme }) => theme.COLORS.SECONDARY_700};
+  transform: rotate(-90deg);
 `;

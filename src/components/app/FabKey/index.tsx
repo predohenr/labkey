@@ -1,63 +1,59 @@
 import React, { useRef, useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
-import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import auth from "@react-native-firebase/auth";
-import firestore from '@react-native-firebase/firestore'
+import Icon from '@expo/vector-icons/MaterialCommunityIcons';
+import { addKeyOnDatabase } from '../../../services';
 import { Modalize } from 'react-native-modalize';
-import { RFPercentage } from "react-native-responsive-fontsize";
-import Theme from '../../../themes/LabKeyTheme';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 import FormNewKey, { HeaderKey } from '../FormNewKey';
-import styles from './styles'
+import { Container, Fab } from './styles';
+import { useTheme } from 'styled-components/native';
+
+type FabType = {
+  icon: any;
+  action: Function;
+};
 
 export default function FabKey() {
-
-  const modalizeRef = useRef(null);
+  const theme = useTheme();
+  const modalizeRef = useRef<Modalize>(null);
   const [keyName, setKeyName] = useState('');
-  const openModal = () =>  modalizeRef.current?.open();
-  const addNewKey = (key) =>  {
-    if (key.length > 0){
-      const userId = auth().currentUser.uid;
-      firestore().collection(`users/${userId}/keys`).add({
-        name: key,
-        available: true,
-        create_at: firestore.FieldValue.serverTimestamp()
-      }).then(() => {
+  const openModal = () => modalizeRef.current?.open();
+  const addNewKey = (key: string) => {
+    if (key.length > 0) {
+      addKeyOnDatabase(key).then(() => {
         modalizeRef.current?.close();
         setKeyName('');
       });
     }
   };
-  const [fab, setFab] = useState({icon: 'plus', action: openModal});
+  const [fab, setFab] = useState<FabType>({ icon: 'plus', action: openModal });
   const open = () => {
-    setFab({icon: 'key-plus', action: addNewKey});
+    setFab({ icon: 'key-plus', action: addNewKey });
   };
   const close = () => {
-    setFab({icon: 'plus', action: openModal});
+    setFab({ icon: 'plus', action: openModal });
   };
 
-  return(
+  return (
     <>
-      <View style={styles.container}>
-        <TouchableOpacity onPress={() => fab.action(keyName)}>
-          <View style={styles.fab}>
-            <Icon name={fab.icon} size={25} color={Theme.OnSecondaryColor} />
-          </View>
-        </TouchableOpacity>
-      </View>
+      <Container>
+        <Fab onPress={() => fab.action(keyName)}>
+          <Icon name={fab.icon} size={25} color={theme.COLORS.OnSURFACE} />
+        </Fab>
+      </Container>
       <Modalize
         ref={modalizeRef}
         snapPoint={RFPercentage(35)}
         modalHeight={RFPercentage(35)}
-        rootStyle={styles.root}
-        scrollViewProps={{ contentContainerStyle: { height: '100%', }, }}
-        modalStyle={styles.modalStyle}
-        handleStyle={styles.handleStyle}
-        HeaderComponent={<HeaderKey/>}
+        rootStyle={{ elevation: 1, zIndex: 1 }}
+        scrollViewProps={{ contentContainerStyle: { height: '100%' } }}
+        modalStyle={{ backgroundColor: theme.COLORS.BACKGROUND_700 }}
+        handleStyle={{ backgroundColor: theme.COLORS.PRIMARY_500 }}
+        HeaderComponent={<HeaderKey />}
         onOpen={open}
         onClose={close}
-        >
+      >
         <FormNewKey text={keyName} setText={setKeyName} />
       </Modalize>
     </>
   );
-};
+}

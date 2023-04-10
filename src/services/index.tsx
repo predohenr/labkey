@@ -37,3 +37,37 @@ export const addLoanOnDataBase = async (
       return Promise.reject(true);
     });
 };
+
+export const addKeyOnDatabase = async (key: string) => {
+  const userId = auth().currentUser?.uid;
+  firestore()
+    .collection(`users/${userId}/keys`)
+    .add({
+      name: key,
+      available: true,
+      create_at: firestore.FieldValue.serverTimestamp(),
+    })
+    .then(() => {
+      return Promise.resolve(true);
+    })
+    .catch(() => {
+      return Promise.reject(true);
+    });
+};
+
+export const updateLoan = async (id: string, idKey: string) => {
+  const userId = auth().currentUser?.uid;
+  firestore().runTransaction(async () => {
+    const date = firestore.FieldValue.serverTimestamp();
+    firestore().doc(idKey).update({ available: true });
+    firestore()
+      .doc(`users/${userId}/loans/${id}`)
+      .update({ returned: true, returned_at: date })
+      .then(() => {
+        return Promise.resolve(true);
+      })
+      .catch(() => {
+        return Promise.reject(true);
+      });
+  });
+};
