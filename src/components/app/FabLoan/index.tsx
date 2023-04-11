@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { addLoanOnDataBase, KeyForLoan } from '../../../services';
 import FormNewLoan, { HeaderLoan } from '../FormNewLoan';
@@ -32,7 +32,9 @@ export default function FabLoan() {
   const [name, setName] = useState<string>('');
   const [contact, setContact] = useState<string>('');
   const [key, setKey] = useState<KeyForLoan | null>(null);
-
+  useEffect(() => {
+    handleAnimation('close');
+  }, []);
   const openModal = () => modalizeRef.current?.open();
   const addNewLoan = (
     name: string,

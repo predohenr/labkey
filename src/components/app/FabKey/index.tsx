@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { addKeyOnDatabase } from '../../../services';
 import { Modalize } from 'react-native-modalize';
@@ -28,6 +28,9 @@ export default function FabKey() {
   };
   const modalizeRef = useRef<Modalize>(null);
   const [keyName, setKeyName] = useState('');
+  useEffect(() => {
+    handleAnimation('close');
+  }, []);
   const openModal = () => modalizeRef.current?.open();
   const addNewKey = (key: string) => {
     if (key.length > 0) {

@@ -11,7 +11,9 @@ export const Container = styled.View`
   background-color: transparent;
 `;
 
-export const Fab = styled.Pressable`
+export const Fab = styled.TouchableOpacity.attrs({
+  activeOpacity: 0.6,
+})`
   justify-content: center;
   align-items: center;
   height: ${RFPercentage(7)}px;
