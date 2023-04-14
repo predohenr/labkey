@@ -46,8 +46,8 @@ export default function FabKey() {
     setFab({ icon: 'key-plus', action: addNewKey });
   };
   const close = () => {
-    handleAnimation('close');
     setFab({ icon: 'plus', action: openModal });
+    handleAnimation('close');
   };
 
   return (

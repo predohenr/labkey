@@ -19,8 +19,8 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 
 export default function Home() {
   const theme = useTheme();
-  const { loans, keys, filterLabel, isLoading } = useDataHome();
   const HEIGHT = RFPercentage(7.5);
+  const { loans, keys, filterLabel, isLoading } = useDataHome();
   const renderItem = ({ item }: any) => <LoanRow item={item} />;
 
   return (
@@ -52,8 +52,8 @@ export default function Home() {
           ) : (
             <List
               data={loans}
-              renderHeader={() => {}}
-              renderFooter={() => {}}
+              renderHeader={null}
+              renderFooter={null}
               renderItem={renderItem}
               keyExtractor={(item) => item.id}
               itemHeight={HEIGHT}

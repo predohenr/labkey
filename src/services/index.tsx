@@ -71,3 +71,16 @@ export const updateLoan = async (id: string, idKey: string) => {
       });
   });
 };
+
+export const deleteKeyFromDatabase = async (id: string) => {
+  const userId = auth().currentUser?.uid;
+  firestore()
+    .doc(`users/${userId}/keys/${id}`)
+    .delete()
+    .then(() => {
+      return Promise.resolve(true);
+    })
+    .catch(() => {
+      return Promise.reject(true);
+    });
+};

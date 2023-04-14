@@ -56,8 +56,8 @@ export default function FabLoan() {
     setFab({ icon: 'account-key', action: addNewLoan });
   };
   const close = () => {
-    handleAnimation('close');
     setFab({ icon: 'plus', action: openModal });
+    handleAnimation('close');
   };
 
   return (
