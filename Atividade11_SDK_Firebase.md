@@ -37,26 +37,26 @@ useEffect(() => {
   }, []);
   ```
 Deslogar:  
- ```auth().signOut()```   
+ ```
+ auth().signOut()
+ ```   
 Criar entrada no banco de dados:  
 
-```
-  firestore().collection('Chaves').add({
+ ```
+firestore().collection('Chaves').add({
       name: 'k04',
       available: true,
       create_at: firestore.FieldValue.serverTimestamp(),
     })
-```
+ ```
 Ler do banco de dados:  
-```
+ ```
 import firestore from '@react-native-firebase/firestore';
 firestore().collection('Users'); //lê uma coleção
-
-
 firestore().collection('Chaves').doc('j04'); //lê um documento de uma coleção
-```
+ ```
 Atualizar entrada no banco de dados:
-```
+ ```
 firestore().doc('Chaves/iayshfodsfhg').update({ available: true });
 useEffect(() => { //se tiver uma mudança em uma coleção, atualiza automaticamente dentro da aplicação
     const subscriber = firestore().
@@ -66,7 +66,9 @@ useEffect(() => { //se tiver uma mudança em uma coleção, atualiza automaticam
       });
     return () => subscriber();
   }, [userId]);
-```
+ ```
 
 Remover do banco:   
-```firestore().doc('Chaves/iayshfodsfhg').delete()```   
+ ```
+ firestore().doc('Chaves/iayshfodsfhg').delete()
+ ```   
