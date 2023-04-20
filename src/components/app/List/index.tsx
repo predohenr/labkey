@@ -1,8 +1,10 @@
 import React from 'react';
 import BigList, { BigListProps } from 'react-native-big-list';
-import { Container, Data, NoData, Message } from './styles';
+import { Container, NoData, Message, Header, Footer } from './styles';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
 export default function List({ ...rest }: BigListProps<any>) {
+  const HEIGHT = RFPercentage(5);
   if (rest.data?.length == 0) {
     return (
       <NoData>
@@ -11,18 +13,21 @@ export default function List({ ...rest }: BigListProps<any>) {
     );
   }
 
+  const header = () => <Header />;
+  const footer = () => <Footer />;
+
   return (
     <Container>
-      <Data>
-        <BigList
-          data={rest.data}
-          renderHeader={rest.renderHeader}
-          renderFooter={rest.renderFooter}
-          renderItem={rest.renderItem}
-          keyExtractor={rest.keyExtractor}
-          itemHeight={rest.itemHeight}
-        />
-      </Data>
+      <BigList
+        data={rest.data}
+        renderHeader={header}
+        headerHeight={1}
+        renderFooter={footer}
+        footerHeight={HEIGHT}
+        renderItem={rest.renderItem}
+        keyExtractor={rest.keyExtractor}
+        itemHeight={rest.itemHeight}
+      />
     </Container>
   );
 }

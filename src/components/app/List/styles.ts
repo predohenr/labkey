@@ -7,12 +7,6 @@ export const Container = styled.View`
   margin-bottom: ${RFPercentage(3.8)}px;
 `;
 
-export const Data = styled.View`
-  flex: 1;
-  border-top-width: 1px;
-  border-top-color: ${({ theme }) => theme.COLORS.GRAY_9};
-`;
-
 export const NoData = styled.View`
   flex: 1;
   justify-content: center;
@@ -23,4 +17,13 @@ export const Message = styled.Text`
   font-size: ${RFPercentage(2.8)}px;
   font-family: ${({ theme }) => theme.FONTS.MEDIUM};
   color: ${({ theme }) => theme.COLORS.OnBACKGROUND};
+`;
+
+export const Header = styled.View`
+  border-top-width: 1px;
+  border-top-color: ${({ theme }) => theme.COLORS.GRAY_9};
+`;
+
+export const Footer = styled.View`
+  background-color: ${({ theme }) => theme.COLORS.BACKGROUND_700};
 `;
