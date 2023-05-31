@@ -20,6 +20,9 @@ export default function MsgError({ erroLogin }: MsgErrorInterface) {
     case 'auth/wrong-password':
       message = 'Senha incorreta.';
       break;
+    case 'search/not-find':
+      message = 'Palavra-chave incorreta';
+      break;
     default:
       return null;
   }

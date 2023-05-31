@@ -31,6 +31,10 @@ export default function Input({ ...rest }: Props) {
     });
   };
   switch (rest.customType) {
+    case 'text':
+      rest.autoCapitalize = 'none';
+      rest.inputMode = 'text';
+      break;
     case 'email':
       rest.autoCapitalize = 'none';
       rest.inputMode = 'email';

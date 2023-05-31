@@ -41,7 +41,7 @@ export default function FormLogin({
         value={senha}
       />
       <MsgError erroLogin={erroLogin} />
-      <Button onPress={submit} />
+      <Button title="Entrar" onPress={submit} />
     </>
   );
 }
