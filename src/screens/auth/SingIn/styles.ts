@@ -24,3 +24,13 @@ export const FormContainer = styled.View`
   padding-top: ${RFPercentage(1)}px;
   padding-horizontal: 5%;
 `;
+
+export const NovaContaContainer = styled.Pressable`
+  margin-top: ${RFPercentage(3)}px;
+`;
+
+export const NovaConta = styled.Text`
+  font-family: ${({ theme }) => theme.FONTS.REGULAR};
+  font-size: ${RFPercentage(2.2)}px;
+  color: ${({ theme }) => theme.COLORS.SECONDARY_700};
+`;
