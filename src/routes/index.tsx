@@ -6,23 +6,31 @@ import { DataProvider } from '../contexts/data';
 import AuthRoutes from './AuthRoutes';
 import AppRoutes from './AppRoutes';
 import { AuthDataProvider } from '../contexts/authData';
+import { StatusBar } from 'expo-status-bar';
+import { useTheme } from 'styled-components/native';
 
 export default function Routes() {
+  const theme = useTheme();
   const { signed } = authUser();
 
   return (
     <NavigationContainer>
-      <SafeAreaView style={{ flex: 1 }}>
-        {signed ? (
-          <DataProvider>
+      {signed ? (
+        <DataProvider>
+          <StatusBar style="light" backgroundColor={theme.COLORS.PRIMARY_700} />
+          <SafeAreaView style={{ flex: 1 }}>
             <AppRoutes />
-          </DataProvider>
-        ) : (
-          <AuthDataProvider>
-            <AuthRoutes />
-          </AuthDataProvider>
-        )}
-      </SafeAreaView>
+          </SafeAreaView>
+        </DataProvider>
+      ) : (
+        <AuthDataProvider>
+          <StatusBar
+            style="dark"
+            backgroundColor={theme.COLORS.BACKGROUND_700}
+          />
+          <AuthRoutes />
+        </AuthDataProvider>
+      )}
     </NavigationContainer>
   );
 }

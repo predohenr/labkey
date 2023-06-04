@@ -5,9 +5,12 @@ export interface Values {
   signed: boolean;
   user: FirebaseAuthTypes.User | null;
   signIn: Function;
+  signUp: Function;
   signOut: Function;
   authErro: string | null;
+  newErro: string | null;
   setAuthErro: React.Dispatch<React.SetStateAction<string | null>>;
+  setNewErro: React.Dispatch<React.SetStateAction<string | null>>;
   loading: boolean;
 }
 
@@ -17,6 +20,7 @@ export const AuthProvider = ({ children }: { children?: React.ReactNode }) => {
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
   const [loading, setLoading] = useState(true);
   const [authErro, setAuthErro] = useState<string | null>(null);
+  const [newErro, setNewErro] = useState<string | null>(null);
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged((authUser) => {
@@ -40,6 +44,21 @@ export const AuthProvider = ({ children }: { children?: React.ReactNode }) => {
       });
   }
 
+  function signUp(nome: string, email: string, senha: string) {
+    setLoading(true);
+    auth()
+      .createUserWithEmailAndPassword(email, senha)
+      .then((result) => {
+        return result.user.updateProfile({
+          displayName: nome,
+        });
+      })
+      .catch((error) => {
+        setLoading(false);
+        setNewErro(error.code);
+      });
+  }
+
   function signOut() {
     auth()
       .signOut()
@@ -54,8 +73,11 @@ export const AuthProvider = ({ children }: { children?: React.ReactNode }) => {
         signed: user ? true : false,
         user: user,
         signIn: signIn,
+        signUp: signUp,
         signOut: signOut,
+        newErro: newErro,
         authErro: authErro,
+        setNewErro: setNewErro,
         setAuthErro: setAuthErro,
         loading: loading,
       }}

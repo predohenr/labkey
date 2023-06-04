@@ -2,7 +2,7 @@ import React from 'react';
 import Loading from '../../../components/common/Loading';
 import StarterButton from '../../../components/auth/StarterButton';
 import { authUser } from '../../../contexts/auth';
-import { Container, LogoContainer, ImgLogo, ButtonsContainer } from './styles';
+import { Container, ImgLogo, ButtonsContainer } from './styles';
 import { useNavigation } from '@react-navigation/native';
 
 interface NavigationInterface {
@@ -21,24 +21,17 @@ export default function Initial() {
     navigation.navigate('Keys');
   };
 
-  return (
-    <Container>
-      {loading ? (
-        <Loading />
-      ) : (
-        <>
-          <LogoContainer>
-            <ImgLogo source={require('../../../assets/logo.png')} />
-          </LogoContainer>
-          <ButtonsContainer>
-            <StarterButton title="Logar no Sistema" onPress={navigateSingIn} />
-            <StarterButton
-              title="Ver Chaves Disponíveis"
-              onPress={navigateKeys}
-            />
-          </ButtonsContainer>
-        </>
-      )}
-    </Container>
+  const content = loading ? (
+    <Loading />
+  ) : (
+    <>
+      <ImgLogo source={require('../../../assets/new_logo.png')} />
+      <ButtonsContainer>
+        <StarterButton title="Entrar no Sistema" onPress={navigateSingIn} />
+        <StarterButton title="Ver Chaves Disponíveis" onPress={navigateKeys} />
+      </ButtonsContainer>
+    </>
   );
+
+  return <Container>{content}</Container>;
 }

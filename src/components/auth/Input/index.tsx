@@ -39,6 +39,9 @@ export default function Input({ ...rest }: Props) {
       rest.autoCapitalize = 'none';
       rest.inputMode = 'email';
       break;
+    case 'hide':
+      rest.secureTextEntry = true;
+      break;
     case 'senha':
       isSenha = true;
       rest.secureTextEntry = passwordEye.security;

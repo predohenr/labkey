@@ -5,6 +5,7 @@ interface Values {
   loading: boolean;
   searching: boolean;
   setSearching: React.Dispatch<React.SetStateAction<boolean>>;
+  setError: React.Dispatch<React.SetStateAction<string | null>>;
   keys: Array<any>;
   findKeys: Function;
   error: string | null;
@@ -46,6 +47,7 @@ export const AuthDataProvider = ({
   }, [userId]);
 
   function findKeys(password: string) {
+    setLoading(true);
     setSearching(false);
     firestore()
       .collection('passwords_keys')
@@ -53,6 +55,7 @@ export const AuthDataProvider = ({
       .get()
       .then((snapshot) => {
         if (snapshot.exists) {
+          setLoading(false);
           setUserId(snapshot.data()?.user_id);
           setUserName(snapshot.data()?.user_name);
         } else {
@@ -72,6 +75,7 @@ export const AuthDataProvider = ({
         findKeys: findKeys,
         error: error,
         userName: userName,
+        setError: setError,
       }}
     >
       {children}

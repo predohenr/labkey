@@ -8,7 +8,7 @@ export const Container = styled.View`
   max-width: ${RFPercentage(63.7)}px;
   align-items: center;
   border-radius: ${RFPercentage(1.9)}px;
-  margin-bottom: ${RFPercentage(1.2)}px;
+  margin-bottom: ${RFPercentage(2)}px;
   background-color: ${({ theme }) => theme.COLORS.PRIMARY_500};
 `;
 

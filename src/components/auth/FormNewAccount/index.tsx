@@ -10,23 +10,33 @@ interface LoginForm {
   setAuthErro: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-export default function FormLogin({
+export default function FormNewAccount({
   onSubmit,
   erroLogin,
   setAuthErro,
 }: LoginForm) {
+  const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
   const submit = () => {
-    if (email.length > 0 && senha.length > 0) {
+    if (email.length > 0 && senha.length > 0 && nome.length) {
       erroLogin && setAuthErro(null);
-      onSubmit(email, senha);
+      onSubmit(nome, email, senha);
+    } else {
+      setAuthErro('new/blank-fields');
     }
   };
 
   return (
     <>
+      <Input
+        customType="text"
+        customIcon="account"
+        placeholder="Digite seu Nome"
+        onChangeText={(text) => setNome(text)}
+        value={nome}
+      />
       <Input
         customType="email"
         customIcon="email-variant"
@@ -35,7 +45,7 @@ export default function FormLogin({
         value={email}
       />
       <Input
-        customType="senha"
+        customType="hide"
         customIcon="form-textbox-password"
         placeholder="Digite sua Senha"
         onChangeText={(text) => setSenha(text)}
@@ -43,7 +53,7 @@ export default function FormLogin({
       />
       <MsgError erroLogin={erroLogin} />
       <ContainerSubmit>
-        <Button title="Entrar" onPress={submit} />
+        <Button title="Criar Conta" onPress={submit} />
       </ContainerSubmit>
     </>
   );

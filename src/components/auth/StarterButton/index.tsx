@@ -19,7 +19,7 @@ export default function StarterButton({ ...props }: StarterButton) {
   return (
     <Container
       activeOpacity={1}
-      underlayColor={theme.COLORS.PRIMARY_500}
+      underlayColor={theme.COLORS.PRIMARY_700}
       onHideUnderlay={() => setIsPressed(false)}
       onShowUnderlay={() => setIsPressed(true)}
       onPress={pressed}
@@ -28,7 +28,7 @@ export default function StarterButton({ ...props }: StarterButton) {
         style={{
           color: isPressed
             ? theme.COLORS.BACKGROUND_700
-            : theme.COLORS.PRIMARY_500,
+            : theme.COLORS.PRIMARY_700,
         }}
       >
         {props.title}

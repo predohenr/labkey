@@ -2,8 +2,8 @@ import styled from 'styled-components/native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 
 export const Container = styled.TouchableOpacity`
-  width: ${RFPercentage(15.3)}px;
-  height: ${RFPercentage(5.1)}px;
+  width: ${RFPercentage(15.7)}px;
+  height: ${RFPercentage(5.3)}px;
   border-radius: ${RFPercentage(1.2)}px;
   justify-content: center;
   elevation: 5;

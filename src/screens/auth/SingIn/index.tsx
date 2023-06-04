@@ -1,15 +1,28 @@
 import React from 'react';
-import { Keyboard, TouchableWithoutFeedback } from 'react-native';
-import { Container, LogoContainer, ImgLogo, FormContainer, NovaContaContainer, NovaConta } from './styles';
+import { Keyboard, Pressable, TouchableWithoutFeedback } from 'react-native';
+import {
+  Container,
+  FormContainer,
+  NovaConta,
+  TitleForm,
+  SubTitleForm,
+  BottomContainer,
+  NovaContaText,
+  Forgotten,
+} from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { authUser } from '../../../contexts/auth';
 import FormLogin from '../../../components/auth/FormLogin';
 import Loading from '../../../components/common/Loading';
 import { useTheme } from 'styled-components/native';
 
+interface NavigationInterface {
+  navigate: any;
+}
+
 export default function SingIn() {
   const { signIn, authErro, setAuthErro, loading } = authUser();
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationInterface>();
   const theme = useTheme();
   const handleSingIn = (email: string, senha: string) => {
     signIn(email, senha);
@@ -18,29 +31,48 @@ export default function SingIn() {
     <Loading />
   ) : (
     <>
-    <FormLogin
-      onSubmit={handleSingIn}
-      erroLogin={authErro}
-      setAuthErro={setAuthErro}
-    />
-    <NovaContaContainer
-      onPress={() => navigation.navigate('SingUp')}>
+      <TitleForm>Entre no sistema</TitleForm>
+      <SubTitleForm>Gerencie suas chaves ou sua palavra-chave</SubTitleForm>
+      <FormLogin
+        onSubmit={handleSingIn}
+        erroLogin={authErro}
+        setAuthErro={setAuthErro}
+      />
+      <Forgotten onPress={() => navigation.navigate('SingUp')}>
         {({ pressed }) => (
-          <NovaConta style={{ color: pressed ? theme.COLORS.PRIMARY_700 : theme.COLORS.SECONDARY_700 }}
+          <NovaConta
+            style={{
+              color: pressed
+                ? theme.COLORS.SECONDARY_700
+                : theme.COLORS.PRIMARY_700,
+            }}
           >
-            Criar Conta
+            Esqueceu a senha?
           </NovaConta>
         )}
-    </NovaContaContainer>
+      </Forgotten>
+      <BottomContainer>
+        <NovaContaText>Não possui conta? </NovaContaText>
+        <Pressable onPress={() => navigation.navigate('SingUp')}>
+          {({ pressed }) => (
+            <NovaConta
+              style={{
+                color: pressed
+                  ? theme.COLORS.SECONDARY_700
+                  : theme.COLORS.PRIMARY_700,
+              }}
+            >
+              Cadastre-se
+            </NovaConta>
+          )}
+        </Pressable>
+      </BottomContainer>
     </>
   );
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <Container>
-        <LogoContainer>
-          <ImgLogo source={require('../../../assets/logo.png')} />
-        </LogoContainer>
         <FormContainer>{content}</FormContainer>
       </Container>
     </TouchableWithoutFeedback>

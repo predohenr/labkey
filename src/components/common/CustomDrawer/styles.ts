@@ -14,11 +14,12 @@ export const Header = styled.View`
   padding-bottom: ${RFPercentage(1.2)}px;
 `;
 
-export const Img = styled.Image`
+export const Img = styled.Image.attrs({
+  resizeMode: 'contain',
+})`
   height: ${RFPercentage(12.7)}px;
   width: ${RFPercentage(12.7)}px;
   tint-color: ${({ theme }) => theme.COLORS.OnSURFACE};
-  margin-bottom: -${RFPercentage(1.2)}px;
 `;
 
 export const Content = styled.View`

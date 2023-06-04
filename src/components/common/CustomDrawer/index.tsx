@@ -37,7 +37,7 @@ export default function CustomDrawer(props: any) {
         {...props}
       >
         <Header>
-          <Img source={require('../../../assets/logo_branco.png')} />
+          <Img source={require('../../../assets/new_logo_white.png')} />
 
           <Content>
             <ContainerIcons>

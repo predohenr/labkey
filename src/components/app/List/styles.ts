@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
-  margin-horizontal: ${RFPercentage(1.2)}px;
+  /* margin-horizontal: ${RFPercentage(1.2)}px; */
   margin-bottom: ${RFPercentage(3.8)}px;
 `;
 

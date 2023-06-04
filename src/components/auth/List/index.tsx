@@ -1,10 +1,11 @@
 import React from 'react';
 import BigList, { BigListProps } from 'react-native-big-list';
-import { Container, NoData, Message, Header } from './styles';
+import { Container, NoData, Message } from './styles';
+import Header from './Header';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 
 export default function List({ ...rest }: BigListProps<any>) {
-  const HEIGHT = RFPercentage(10);
+  const HEIGHT = RFPercentage(15);
   if (rest.data?.length == 0) {
     return (
       <NoData>

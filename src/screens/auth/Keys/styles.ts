@@ -14,8 +14,8 @@ export const Header = styled.View`
   position: absolute;
   justify-content: center;
   padding-left: 4%;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: ${RFPercentage(2)}px;
+  border-bottom-right-radius: ${RFPercentage(2)}px;
   border-bottom-width: 1px;
   border-bottom-color: ${({ theme }) => theme.COLORS.PRIMARY_700};
   background-color: ${({ theme }) => theme.COLORS.PRIMARY_500};
@@ -41,7 +41,7 @@ export const TitleForm = styled.Text`
 
 export const SubTitleForm = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.MEDIUM};
-  color: ${({ theme }) => theme.COLORS.PRIMARY_700};
+  color: ${({ theme }) => theme.COLORS.GRAY_6};
   font-size: ${RFPercentage(2)}px;
   margin-bottom: 30px;
 `;
@@ -49,8 +49,8 @@ export const SubTitleForm = styled.Text`
 export const ContainerCenter = styled.View`
   flex: 1;
   width: 100%;
-  padding-left: 10%;
-  padding-right: 10%;
+  padding-left: 5%;
+  padding-right: 5%;
   justify-content: center;
   align-items: center;
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND_700};
@@ -59,4 +59,10 @@ export const ContainerCenter = styled.View`
 export const ContainerList = styled.View`
   flex: 1;
   width: 100%;
+`;
+
+export const ContainerSubmit = styled.View`
+  width: 100%;
+  align-items: center;
+  margin-top: ${RFPercentage(3)}px;
 `;

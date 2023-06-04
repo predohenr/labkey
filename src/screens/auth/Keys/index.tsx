@@ -10,6 +10,7 @@ import {
   TitleForm,
   SubTitleForm,
   ContainerList,
+  ContainerSubmit,
 } from './styles';
 import Input from '../../../components/auth/Input';
 import Button from '../../../components/auth/Button';
@@ -19,6 +20,9 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import KeyRow from '../../../components/auth/KeyRow';
 import List from '../../../components/auth/List';
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from 'styled-components/native';
+import { StatusBar } from 'expo-status-bar';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface NavigationInterface {
   navigate: any;
@@ -26,9 +30,18 @@ interface NavigationInterface {
 
 export default function Keys() {
   const navigation = useNavigation<NavigationInterface>();
+  const theme = useTheme();
   const HEIGHT = RFPercentage(8);
-  const { keys, loading, searching, findKeys, error, userName, setSearching } =
-    useData();
+  const {
+    keys,
+    loading,
+    searching,
+    findKeys,
+    error,
+    userName,
+    setSearching,
+    setError,
+  } = useData();
   const [password, setPassword] = useState('');
 
   const renderItem = ({ item, index }: any) => (
@@ -44,6 +57,7 @@ export default function Keys() {
 
   useEffect(() => {
     const backAction = () => {
+      setError(null);
       setSearching(true);
       navigation.navigate('Initial');
       return true;
@@ -74,7 +88,9 @@ export default function Keys() {
               value={password}
             />
             <MsgError erroLogin={error} />
-            <Button title="Buscar" onPress={handleSearch} />
+            <ContainerSubmit>
+              <Button title="Buscar" onPress={handleSearch} />
+            </ContainerSubmit>
           </ContainerCenter>
         </TouchableWithoutFeedback>
       ) : loading ? (
@@ -82,25 +98,31 @@ export default function Keys() {
           <Loading />
         </ContainerCenter>
       ) : (
-        <Container>
-          <Header>
-            <Title>Proprietário: {userName}</Title>
-            <SubTitle>
-              Chaves disponíveis:{' '}
-              {keys.filter((key) => key.available === true).length}
-            </SubTitle>
-          </Header>
-          <ContainerList>
-            <List
-              data={keys}
-              renderHeader={() => {}}
-              renderFooter={() => {}}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.value}
-              itemHeight={HEIGHT}
+        <SafeAreaView style={{ flex: 1 }}>
+          <Container>
+            <StatusBar
+              style="light"
+              backgroundColor={theme.COLORS.PRIMARY_700}
             />
-          </ContainerList>
-        </Container>
+            <Header>
+              <Title>Proprietário: {userName}</Title>
+              <SubTitle>
+                Chaves disponíveis:{' '}
+                {keys.filter((key) => key.available === true).length}
+              </SubTitle>
+            </Header>
+            <ContainerList>
+              <List
+                data={keys}
+                renderHeader={() => {}}
+                renderFooter={() => {}}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.value}
+                itemHeight={HEIGHT}
+              />
+            </ContainerList>
+          </Container>
+        </SafeAreaView>
       )}
     </>
   );

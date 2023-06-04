@@ -8,21 +8,16 @@ export const Container = styled.View`
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND_700};
 `;
 
-export const LogoContainer = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const ImgLogo = styled.Image`
-  height: ${RFPercentage(25.5)}px;
-  width: ${RFPercentage(25.5)}px;
+export const ImgLogo = styled.Image.attrs({
+  resizeMode: 'contain',
+})`
+  height: ${RFPercentage(35)}px;
+  width: ${RFPercentage(35)}px;
 `;
 
 export const ButtonsContainer = styled.View`
-  flex: 1;
+  position: absolute;
   width: 100%;
-  justify-content: flex-start;
   align-items: center;
-  padding-top: ${RFPercentage(1)}px;
+  bottom: ${RFPercentage(7)}px;
 `;

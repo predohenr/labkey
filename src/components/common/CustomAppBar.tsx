@@ -21,7 +21,9 @@ export default function CustomAppBar() {
       subtitle="Gerenciamento de Chaves"
       color={theme.COLORS.PRIMARY_500}
       tintColor={theme.COLORS.OnSURFACE}
-      contentContainerStyle={{ height: RFPercentage(7.1) }}
+      contentContainerStyle={{
+        height: RFPercentage(7.1),
+      }}
       titleStyle={{ fontFamily: theme.FONTS.MEDIUM }}
       subtitleStyle={{ fontFamily: theme.FONTS.REGULAR }}
       leading={(props) => (

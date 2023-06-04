@@ -4,7 +4,6 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider } from './src/contexts/auth';
 import { SelectProvider } from '@mobile-reality/react-native-select-pro';
 import { ThemeProvider } from 'styled-components/native';
-import { StatusBar } from 'expo-status-bar';
 import {
   useFonts,
   Roboto_400Regular,
@@ -27,7 +26,6 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <StatusBar style="light" backgroundColor={THEME.COLORS.PRIMARY_700} />
       <SelectProvider>
         <AuthProvider>
           <ThemeProvider theme={THEME}>
