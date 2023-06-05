@@ -4,6 +4,7 @@ import SingIn from '../screens/auth/SingIn';
 import Initial from '../screens/auth/Initial';
 import Keys from '../screens/auth/Keys';
 import SingUp from '../screens/auth/SingUp';
+import Forgot from '../screens/auth/Forgot';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,7 @@ export default function AuthRoutes() {
       <Stack.Screen name="SingIn" component={SingIn} />
       <Stack.Screen name="SingUp" component={SingUp} />
       <Stack.Screen name="Keys" component={Keys} />
+      <Stack.Screen name="Forgot" component={Forgot} />
     </Stack.Navigator>
   );
 }

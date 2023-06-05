@@ -1,12 +1,15 @@
 import React from 'react';
 import { Mensagem } from './styles';
+import { useTheme } from 'styled-components/native';
 
 interface MsgErrorInterface {
   erroLogin: string | null;
 }
 
 export default function MsgError({ erroLogin }: MsgErrorInterface) {
+  const theme = useTheme();
   let message = '';
+  let type = '';
   switch (erroLogin) {
     case 'auth/invalid-email':
       message = 'E-mail inválido.';
@@ -35,8 +38,15 @@ export default function MsgError({ erroLogin }: MsgErrorInterface) {
     case 'auth/email-already-in-use':
       message = 'Este E-mail já está sendo usado por outra conta';
       break;
+    case 'auth/user-not-found':
+      message = 'Usuário não encontrado';
+      break;
+    case 'success/send-email':
+      message = 'E-mail enviado com sucesso';
+      type = 'success';
+      break;
     default:
       return null;
   }
-  return <Mensagem>{message}</Mensagem>;
+  return <Mensagem style={{color: type=='success' ? theme.COLORS.GREEN_700 : theme.COLORS.RED_500}}>{message}</Mensagem>;
 }

@@ -7,10 +7,13 @@ export interface Values {
   signIn: Function;
   signUp: Function;
   signOut: Function;
+  forgotPassword: Function;
   authErro: string | null;
   newErro: string | null;
+  forgotErro: string | null;
   setAuthErro: React.Dispatch<React.SetStateAction<string | null>>;
   setNewErro: React.Dispatch<React.SetStateAction<string | null>>;
+  setForgotErro: React.Dispatch<React.SetStateAction<string | null>>;
   loading: boolean;
 }
 
@@ -21,6 +24,7 @@ export const AuthProvider = ({ children }: { children?: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
   const [authErro, setAuthErro] = useState<string | null>(null);
   const [newErro, setNewErro] = useState<string | null>(null);
+  const [forgotErro, setForgotErro] = useState<string | null>(null);
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged((authUser) => {
@@ -59,6 +63,19 @@ export const AuthProvider = ({ children }: { children?: React.ReactNode }) => {
       });
   }
 
+  function forgotPassword(email: string){
+    setLoading(true);
+    auth().sendPasswordResetEmail(email)
+    .then((result) => {
+      setLoading(false);
+      setForgotErro('success/send-email');
+    })
+    .catch((error) => {
+      setLoading(false);
+      setForgotErro(error.code);
+    });
+  }
+
   function signOut() {
     auth()
       .signOut()
@@ -75,11 +92,14 @@ export const AuthProvider = ({ children }: { children?: React.ReactNode }) => {
         signIn: signIn,
         signUp: signUp,
         signOut: signOut,
+        forgotPassword: forgotPassword,
         newErro: newErro,
         authErro: authErro,
         setNewErro: setNewErro,
         setAuthErro: setAuthErro,
         loading: loading,
+        forgotErro: forgotErro,
+        setForgotErro: setForgotErro,
       }}
     >
       {children}

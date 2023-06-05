@@ -38,7 +38,7 @@ export default function SingIn() {
         erroLogin={authErro}
         setAuthErro={setAuthErro}
       />
-      <Forgotten onPress={() => navigation.navigate('SingUp')}>
+      <Forgotten onPress={() => navigation.navigate('Forgot')}>
         {({ pressed }) => (
           <NovaConta
             style={{
