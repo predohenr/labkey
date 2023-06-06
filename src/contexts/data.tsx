@@ -20,6 +20,7 @@ interface Values {
   filter: Option;
   setFilter: React.Dispatch<React.SetStateAction<Option>>;
   options: Array<Option>;
+  password: string;
 }
 
 const DataContext = createContext<Values>({} as Values);
@@ -29,6 +30,7 @@ export const DataProvider = ({ children }: { children?: React.ReactNode }) => {
   const [isLoadingKeys, setIsLoadingKeys] = useState<boolean>(true);
   const [loans, setLoans] = useState<Array<any>>([]);
   const [keys, setKeys] = useState<Array<any>>([]);
+  const [password, setPassword] = useState<string>('');
   const date = new Date();
   const today = new Date(date.setHours(23, 59, 59, 999));
   const options = [
@@ -74,9 +76,16 @@ export const DataProvider = ({ children }: { children?: React.ReactNode }) => {
         setIsLoadingKeys(false);
       });
 
+    const subscriberPassword = firestore()
+      .doc(`users/${userId}`)
+      .onSnapshot((query) => {
+        setPassword(query.data()?.password_key);
+      });
+
     return () => {
       subscriberLoans();
       subscriberKeys();
+      subscriberPassword();
     };
   }, [filter]);
 
@@ -90,6 +99,7 @@ export const DataProvider = ({ children }: { children?: React.ReactNode }) => {
         filter: filter,
         setFilter: setFilter,
         options: options,
+        password: password,
       }}
     >
       {children}

@@ -6,6 +6,7 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { useTheme } from 'styled-components/native';
 import Home from '../screens/app/home';
 import Keys from '../screens/app/keys';
+import User from '../screens/app/user';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 
 const Drawer = createDrawerNavigator();
@@ -46,6 +47,15 @@ export default function AppRoutes() {
               size={RFPercentage(3.5)}
               color={color}
             />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Palavra-chave"
+        component={User}
+        options={{
+          drawerIcon: ({ color }) => (
+            <Icon name="magnify" size={RFPercentage(3.5)} color={color} />
           ),
         }}
       />
