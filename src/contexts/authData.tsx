@@ -50,7 +50,7 @@ export const AuthDataProvider = ({
     setLoading(true);
     setSearching(false);
     firestore()
-      .collection('passwords_keys')
+      .collection('password_keys')
       .doc(password)
       .get()
       .then((snapshot) => {

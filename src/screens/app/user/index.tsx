@@ -20,17 +20,25 @@ import { useData } from '../../../contexts/data';
 import StarterButton from '../../../components/auth/StarterButton';
 import Button from '../../../components/auth/Button';
 import Input from '../../../components/auth/Input';
+import MsgError from '../../../components/auth/MsgError';
 
 export default function User() {
   const { password } = useData();
   const user = auth().currentUser;
   const [newPassword, setNewPassword] = useState<string>('');
   const [changePassword, setChangePassword] = useState<boolean>(false);
+  const [message, setMessage] = useState<string | null>(null);
 
   const submit = async () => {
-    await updatePassword(newPassword);
-    setChangePassword(false);
-    setNewPassword('');
+    updatePassword(newPassword)
+      .then((response) => {
+        setChangePassword(false);
+        setNewPassword('');
+        setMessage(null);
+      })
+      .catch((error) => {
+        setMessage(error);
+      });
   };
 
   const content = changePassword ? (
@@ -42,6 +50,7 @@ export default function User() {
         onChangeText={(text) => setNewPassword(text)}
         value={newPassword}
       />
+      <MsgError erroLogin={message} />
       <SubmitButton>
         <Button onPress={submit} title="Enviar" />
       </SubmitButton>

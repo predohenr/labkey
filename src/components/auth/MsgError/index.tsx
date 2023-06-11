@@ -45,6 +45,9 @@ export default function MsgError({ erroLogin }: MsgErrorInterface) {
       message = 'E-mail enviado com sucesso';
       type = 'success';
       break;
+    case 'password/already-exists':
+      message = 'Essa palavra-chave já existe';
+      break;
     default:
       return null;
   }

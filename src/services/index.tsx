@@ -89,23 +89,22 @@ export const updatePassword = async (password: string) => {
   const userId = auth().currentUser?.uid;
   const userName = auth().currentUser?.displayName;
 
-  firestore().runTransaction(async () => {
+  return firestore().runTransaction(async () => {
     const oldPassword = (await firestore().doc(`users/${userId}`).get()).data()
       ?.password_key;
-    await firestore().doc(`users/${userId}`).update({ password_key: password });
-    await firestore().doc(`password_keys/${oldPassword}`).delete();
-    firestore()
-      .collection('password_keys')
-      .doc(password)
-      .set({
+    const checkIfExist = await firestore()
+      .doc(`password_keys/${password}`)
+      .get();
+    if (!checkIfExist.exists || oldPassword == password) {
+      await firestore().doc(`users/${userId}`).set({ password_key: password });
+      await firestore().doc(`password_keys/${oldPassword}`).delete();
+      await firestore().doc(`password_keys/${password}`).set({
         user_id: userId,
         user_name: userName,
-      })
-      .then(() => {
-        return Promise.resolve(true);
-      })
-      .catch(() => {
-        return Promise.reject(true);
       });
+      return Promise.resolve(true);
+    } else {
+      return Promise.reject('password/already-exists');
+    }
   });
 };
