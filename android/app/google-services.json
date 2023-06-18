@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "228583036125",
+    "project_id": "labkey-bda80",
+    "storage_bucket": "labkey-bda80.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:228583036125:android:e17db51faef4192f687734",
+        "android_client_info": {
+          "package_name": "com.labkey"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "228583036125-ntbbka33qvjaseahbcrc6e48skn3f3uh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoI7iDYCZf_OtNRaFsskpJKlnXs8SWE0o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "228583036125-ntbbka33qvjaseahbcrc6e48skn3f3uh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
